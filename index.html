@@ -7,70 +7,63 @@
     <script type="text/javascript" src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
     <script type="text/javascript" src="http://www.pureexample.com/js/lib/jquery.ui.touch-punch.min.js"></script>
 
-    <script>
-    $('.divDrag').draggable();
-    $('#div2').droppable();
-    </script>
     <meta name="viewport" content="width=device-width,user-scalable=no">
-
-　
-    <style>
-        #div1, #div2 {
-            width: 500px;
-            height: 90px;
-            margin: 0px;
-            padding: 5px;
-            border: 1px solid black;
-            vertical-align: middle;
-        }
-
-        .divDrag {
-            float: left;
-            width: 80px;
-            height: 80px;
-            background-color: darkseagreen;
-            border: 1px solid black;
-            margin: 5px;
-        }
-    </style>
 
 </head>
 <body>
 
-　
     <form id="form1">
         <h2>Drag and Drop 3</h2>
         <p>Drag the image back and forth between the two div elements.</p>
 
-        <div id="div1">
-        </div>
-        <br />
+        <style>
+            #draggable {
+                width: 80px;
+                height: 80px;
+                padding: 0.5em;
+                float: left;
+                margin: 10px 10px 10px 0;
+                background-color:blue;
+            }
 
-        <div id="div2">
-            DROP HERE
-        </div>
-        <br />
-        <div id="div3" draggable="true" class="divDrag">
-            <img src="Assets/a.png" id="drag1" draggable="false" class="NoDrop" width="55" height="55">
-            <asp:Label ID="Label1"  Text="123"></asp:Label>
-        </div>
-        <div id="div4" draggable="true" class="divDrag">
-            <img src="Assets/b.png" id="drag2" draggable="false" class="NoDrop" width="55" height="55">
-            <asp:Label ID="Label2" Text="123"></asp:Label>
-        </div>
-        <div id="div5" draggable="true" class="divDrag">
-            <img src="Assets/c.png" id="drag3" draggable="false" class="NoDrop" width="55" height="55">
-            <asp:Label ID="Label3"  Text="123"></asp:Label>
-        </div>
-        <div id="div6" draggable="true" class="divDrag">
-            <img src="Assets/d.png" id="drag4" draggable="false" class="NoDrop" width="55" height="55">
-            <asp:Label ID="Label4"  Text="123"></asp:Label>
-        </div>
-        <div id="div7" draggable="true" class="divDrag">
-            <img src="Assets/e.png" id="drag5" draggable="false" class="NoDrop" width="55" height="55">
-            <asp:Label ID="Label5" Text="123"></asp:Label>
-        </div>
+            #droppable {
+                width: 150px;
+                height: 150px;
+                padding: 0.5em;
+                float: left;
+                margin: 10px;
+                background-color:antiquewhite;
+            }
+        </style>
 
+        <script>
+            $(function () {
+                $("#draggable").draggable();
+                $("#droppable").droppable({
+                    drop: function (event, ui) {
+                        $(this)                  
+                          .find("p")
+                            .html("Dropped!");
+                    }
+                });
+            });
+        </script>
+
+　
+　
+        <div class="demo">
+
+            <div id="draggable" class="ui-widget-content">
+                <p>Drag me to my target</p>
+            </div>
+
+            <div id="droppable" class="ui-widget-header">
+                <p>Drop here</p>
+            </div>
+
+        </div><!-- End demo -->
+
+　
     </form>
 
 　
