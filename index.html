@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head >
-    <title>Dean Demo</title>
-<script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
-<script src="http://code.jquery.com/ui/1.8.21/jquery-ui.min.js"></script>
+<title>Dean Demo</title>
 
-<script src="touch.js"></script>
+<script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
+<script type="text/javascript" src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
+<script type="text/javascript" src="http://www.pureexample.com/js/lib/jquery.ui.touch-punch.min.js"></script>
+
+<script>$('.divDrag').draggable();</script>
 <meta name="viewport" content="width=device-width,user-scalable=no">
     
 
@@ -66,7 +68,7 @@
 
 　
     <form id="form1">
-        <h2>Drag and Drop 5</h2>
+        <h2>Drag and Drop 1</h2>
         <p>Drag the image back and forth between the two div elements.</p>
 
         <div id="div1" ondrop="drop(event)" ondragover="allowDrop(event)">
@@ -98,7 +100,6 @@
 
     </form>
 
-<script>$('#div3').draggable();</script>
-    
+   
 </body>
 </html>
