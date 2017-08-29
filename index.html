@@ -7,61 +7,72 @@
     <script type="text/javascript" src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
     <script type="text/javascript" src="http://www.pureexample.com/js/lib/jquery.ui.touch-punch.min.js"></script>
 
-    <meta name="viewport" content="width=device-width,height=device-height,user-scalable=no">
+    <meta name="viewport" content="width=device-width,height=device-height,user-scalable=yes">
 
 </head>
 <body>
 
     <form id="form1">
-        <h2>Drag and Drop 1</h2>
+        <h2>Drag and Drop 3</h2>
         <p>Drag the image back and forth between the two div elements.</p>
 
         <style>
-            #draggable {
-                width: 80px;
-                height: 80px;
-                padding: 0.5em;
-                float: left;
-                margin: 10px 10px 10px 0;
-                background-color:blue;
+            .draggable {
+            float: left;
+            width: 80px;
+            height: 80px;
+            background-color: darkseagreen;
+            border: 1px solid black;
+            margin: 5px;
+
             }
 
-            #droppable {
-                width: 150px;
-                height: 150px;
-                padding: 0.5em;
-                float: left;
-                margin: 10px;
-                background-color:antiquewhite;
+            .droppable {
+            width: 500px;
+            height: 90px;
+            margin: 0px;
+            padding: 5px;
+            border: 1px solid black;
+            vertical-align: middle;
             }
         </style>
 
         <script>
             $(function () {
-                $("#draggable").draggable();
-                $("#droppable").droppable({
-                    drop: function (event, ui) {
-                        $(this)                  
-                          .find("p")
-                            .html("Dropped!");
-                    }
-                });
+                $(".draggable").draggable({ snap: true, snapTolerance: 30 });
+                $(".droppable").droppable();
+
             });
         </script>
 
 　
-　
-        <div class="demo">
+        <div id="div1" class="droppable">
+        </div>
+        <br />
 
-            <div id="draggable" class="ui-widget-content">
-                <p>Drag me to my target</p>
-            </div>
-
-            <div id="droppable" class="ui-widget-header">
-                <p>Drop here</p>
-            </div>
-
-        </div><!-- End demo -->
+        <div id="div2" class="droppable">
+        </div>
+        <br />
+        <div id="div3" class="draggable">
+            <img src="Assets/a.png" id="drag1" class="NoDrop" width="55" height="55">
+            <asp:Label ID="Label1"Text="123"></asp:Label>
+        </div>
+        <div id="div4" class="draggable">
+            <img src="Assets/b.png" id="drag2" class="NoDrop" width="55" height="55">
+            <asp:Label ID="Label2"Text="123"></asp:Label>
+        </div>
+        <div id="div5" class="draggable" >
+            <img src="Assets/c.png" id="drag3" class="NoDrop" width="55" height="55">
+            <asp:Label ID="Label3" Text="123"></asp:Label>
+        </div>
+        <div id="div6" class="draggable">
+            <img src="Assets/d.png" id="drag4" class="NoDrop"  width="55" height="55">
+            <asp:Label ID="Label4" runat="server" Text="123"></asp:Label>
+        </div>
+        <div id="div7" class="draggable" >
+            <img src="Assets/e.png" id="drag5" class="NoDrop"  width="55" height="55">
+            <asp:Label ID="Label5" Text="123"></asp:Label>
+        </div>
 
 　
     </form>
