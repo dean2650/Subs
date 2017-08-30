@@ -21,7 +21,7 @@
                 float: left;
                 width: 80px;
                 height: 80px;
-                background-color: darkseagreen;
+                background-color:powderblue;
                 border: 1px solid black;
                 margin: 5px;
             }
@@ -31,12 +31,14 @@
                 height: 90px;
                 margin: 0px;
                 padding: 5px;
-                border: 1px solid black;
+                border: 1px solid;
                 vertical-align: middle;
+                background-color:antiquewhite;
             }
 
             .drop-hover {
-                background-color: orangered;
+                padding: 2px;
+                border-width: 4px;
             }
         </style>
 
@@ -52,29 +54,31 @@
                 });
 
                 $('.droppable').droppable({
+
+                    hoverClass: "drop-hover",
+
                     drop: function (event, ui) {
                         var $this = $(this);
 
                         if (event.target.id == "div1") {
-                            var aa = ui.draggable.context;
-                            aa.style.backgroundColor = "#A6BFE6"
+
+                            // Check number of elements already in
+                            if ($this.find('.draggable').length >= 4) {
+                                // Cancel drag operation (make it always revert)
+                                ui.draggable.draggable('option', 'revert', true);
+
+                                return;
+                            }
+
                         }
 
-                        if ($this.find('.draggable').length == 4) {
-                            event.target.style.backgroundColor = "silver"
-                        }
-                        else
-                        {
-                            event.target.style.backgroundColor = "white"
-                        }
-
-                        // Check number of elements already in
-                        if ($this.find('.draggable').length >= 4) {
-                            // Cancel drag operation (make it always revert)
-                            ui.draggable.draggable('option', 'revert', true);
-
-                            return;
-                        }
+                        var aa = ui.draggable.context;
+                        if (event.target.id == "div1")
+                            aa.style.backgroundColor = "darkseagreen"
+                        if (event.target.id == "div2")
+                            aa.style.backgroundColor = "orangered"
+                        if (event.target.id == "div3")
+                            aa.style.backgroundColor = "powderblue"
 
                         // Put dragged item into container
                         ui.draggable.appendTo($this).css({
@@ -82,6 +86,23 @@
                             left: '0px'
                         });
 
+                        //if we are dragging out of div1 zone, then (in the each loop) change bg
+                        $('.droppable').each(function () {
+
+                            var $this = $(this);
+
+                            if ($this.context.id == "div1") {
+                                if ($this.find('.draggable').length >= 4) {
+                                    $this.context.style.backgroundColor = "silver"
+                                }
+                                else {
+                                    $this.context.style.backgroundColor = "antiquewhite"
+                                }
+                            }
+
+                        });
+
+　
                     }
                 });
 
@@ -89,15 +110,15 @@
         </script>
 
 　
-        <div id="div1" class="droppable">
+        <div id="div1" class="droppable" style="border-color:forestgreen; ">
         </div>
         <br />
 
-        <div id="div2" class="droppable">
+        <div id="div2" class="droppable" style="border-color:orangered">
         </div>
         <br />
 
-        <div id="div3" class="droppable">
+        <div id="div3" class="droppable" style="border-color:gray">
 
             <div id="div3" class="draggable">
                 <img src="Assets/a.png" id="drag1" class="NoDrop" width="55" height="55">
