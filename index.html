@@ -46,7 +46,7 @@
             $(function () {
 
                 $('.draggable').draggable({
-                    revert: 'invalid',opacity: 0.65,
+                    revert: 'invalid',opacity: 0.65,scroll: false,
                     stop: function () {
                         // Make it properly draggable again
                         $(this).draggable('option', 'revert', 'invalid');
