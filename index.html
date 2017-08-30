@@ -18,29 +18,72 @@
 
         <style>
             .draggable {
-            float: left;
-            width: 80px;
-            height: 80px;
-            background-color: darkseagreen;
-            border: 1px solid black;
-            margin: 5px;
-
+                float: left;
+                width: 80px;
+                height: 80px;
+                background-color: darkseagreen;
+                border: 1px solid black;
+                margin: 5px;
             }
 
             .droppable {
-            width: 500px;
-            height: 90px;
-            margin: 0px;
-            padding: 5px;
-            border: 1px solid black;
-            vertical-align: middle;
+                width: 600px;
+                height: 90px;
+                margin: 0px;
+                padding: 5px;
+                border: 1px solid black;
+                vertical-align: middle;
+            }
+
+            .drop-hover {
+                background-color: orangered;
             }
         </style>
 
         <script>
             $(function () {
-                $(".draggable").draggable({ snap: true, snapTolerance: 30 });
-                $(".droppable").droppable();
+
+                $('.draggable').draggable({
+                    revert: 'invalid',opacity: 0.65,
+                    stop: function () {
+                        // Make it properly draggable again
+                        $(this).draggable('option', 'revert', 'invalid');
+                    }
+                });
+
+                $('.droppable').droppable({
+                    drop: function (event, ui) {
+                        var $this = $(this);
+
+                        if (event.target.id == "div1") {
+                            var aa = ui.draggable.context;
+                            aa.style.backgroundColor = "#A6BFE6"
+                        }
+
+                        if ($this.find('.draggable').length == 4) {
+                            event.target.style.backgroundColor = "silver"
+                        }
+                        else
+                        {
+                            event.target.style.backgroundColor = "white"
+                        }
+
+                        // Check number of elements already in
+                        if ($this.find('.draggable').length >= 4) {
+                            // Cancel drag operation (make it always revert)
+                            ui.draggable.draggable('option', 'revert', true);
+
+                            return;
+                        }
+
+                        // Put dragged item into container
+                        ui.draggable.appendTo($this).css({
+                            top: '0px',
+                            left: '0px'
+                        });
+
+                    }
+                });
 
             });
         </script>
@@ -53,28 +96,35 @@
         <div id="div2" class="droppable">
         </div>
         <br />
-        <div id="div3" class="draggable">
-            <img src="Assets/a.png" id="drag1" class="NoDrop" width="55" height="55">
-            <asp:Label ID="Label1"Text="123"></asp:Label>
-        </div>
-        <div id="div4" class="draggable">
-            <img src="Assets/b.png" id="drag2" class="NoDrop" width="55" height="55">
-            <asp:Label ID="Label2"Text="123"></asp:Label>
-        </div>
-        <div id="div5" class="draggable" >
-            <img src="Assets/c.png" id="drag3" class="NoDrop" width="55" height="55">
-            <asp:Label ID="Label3" Text="123"></asp:Label>
-        </div>
-        <div id="div6" class="draggable">
-            <img src="Assets/d.png" id="drag4" class="NoDrop"  width="55" height="55">
-            <asp:Label ID="Label4" runat="server" Text="123"></asp:Label>
-        </div>
-        <div id="div7" class="draggable" >
-            <img src="Assets/e.png" id="drag5" class="NoDrop"  width="55" height="55">
-            <asp:Label ID="Label5" Text="123"></asp:Label>
-        </div>
 
-　
+        <div id="div3" class="droppable">
+
+            <div id="div3" class="draggable">
+                <img src="Assets/a.png" id="drag1" class="NoDrop" width="55" height="55">
+                <asp:Label ID="Label1" Text="123"></asp:Label>
+            </div>
+            <div id="div4" class="draggable">
+                <img src="Assets/b.png" id="drag2" class="NoDrop" width="55" height="55">
+                <asp:Label ID="Label2" Text="123"></asp:Label>
+            </div>
+            <div id="div5" class="draggable">
+                <img src="Assets/c.png" id="drag3" class="NoDrop" width="55" height="55">
+                <asp:Label ID="Label3" Text="123"></asp:Label>
+            </div>
+            <div id="div6" class="draggable">
+                <img src="Assets/d.png" id="drag4" class="NoDrop" width="55" height="55">
+                <asp:Label ID="Label4" Text="123"></asp:Label>
+            </div>
+            <div id="div7" class="draggable">
+                <img src="Assets/e.png" id="drag5" class="NoDrop" width="55" height="55">
+                <asp:Label ID="Label5" Text="123"></asp:Label>
+            </div>
+            <div id="div8" class="draggable">
+                <img src="Assets/f.png" id="drag5" class="NoDrop" width="55" height="55">
+                <asp:Label ID="Label6" Text="123"></asp:Label>
+            </div>
+
+        </div>
     </form>
 
 　
