@@ -1,0 +1,71 @@
+﻿#ZoneOn
+{
+    background-image: url("/assets/on.png");
+    background-repeat: no-repeat;
+    background-position: center; 
+    background-size: 230px;
+}
+
+#ZoneGoal
+{
+    background-image: url("/assets/goal.png");
+    background-repeat: no-repeat;
+    background-position: center; 
+}
+
+#ZoneOff
+{
+    background-image: url("/assets/off.png");
+    background-repeat: no-repeat;
+    background-position: center; 
+    background-size: 230px;
+}
+
+#ZoneAway
+{
+    background-image: url("/assets/away.png");
+    background-repeat: no-repeat;
+    background-position: center; 
+    background-size: 430px;
+}
+
+.TimerOn
+{
+    float:right;
+    background-color:forestgreen;
+    color:white;
+    width:55px;
+    height:28px;
+    text-align:center;
+    vertical-align:middle;
+    font-size:18px;
+    padding-top:5px;
+}
+
+.Hidden
+{
+    display:none;
+}
+
+.TimerOff
+{
+    float:right;
+    background-color:darkred;
+    color:white;
+    width:55px;
+    height:28px;
+    text-align:center;
+    vertical-align:middle;
+    font-size:18px;
+    padding-top:5px;
+}
+
+.Header {
+    width: 116px; 
+    height: 18px; 
+    padding-left:5px; 
+    padding-top:3px; 
+    float: left; 
+    color:white; 
+    background-color: cadetblue;
+}
