@@ -1,71 +1,95 @@
-﻿#ZoneOn
-{
+#ZoneOn {
     background-image: url("/assets/on.png");
     background-repeat: no-repeat;
-    background-position: center; 
-    background-size: 230px;
+    background-position: center;
+    background-size: 260px;
 }
 
-#ZoneGoal
-{
+#ZoneGoal {
     background-image: url("/assets/goal.png");
     background-repeat: no-repeat;
-    background-position: center; 
+    background-position: center;
 }
 
-#ZoneOff
-{
+#ZoneOff {
     background-image: url("/assets/off.png");
     background-repeat: no-repeat;
-    background-position: center; 
-    background-size: 230px;
+    background-position: center;
+    background-size: 300px;
 }
 
-#ZoneAway
-{
+#ZoneAway {
     background-image: url("/assets/away.png");
     background-repeat: no-repeat;
-    background-position: center; 
-    background-size: 430px;
+    background-position: center;
+    background-size: 520px;
 }
 
-.TimerOn
-{
-    float:right;
-    background-color:forestgreen;
-    color:white;
-    width:55px;
-    height:28px;
-    text-align:center;
-    vertical-align:middle;
-    font-size:18px;
-    padding-top:5px;
+.TimerOn {
+    float: right;
+    background-color: forestgreen;
+    color: white;
+    width: 55px;
+    height: 28px;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 18px;
+    padding-top: 5px;
 }
 
-.Hidden
-{
-    display:none;
+.Hidden {
+    display: none;
 }
 
-.TimerOff
-{
-    float:right;
-    background-color:darkred;
-    color:white;
-    width:55px;
-    height:28px;
-    text-align:center;
-    vertical-align:middle;
-    font-size:18px;
-    padding-top:5px;
+.TimerOff {
+    float: right;
+    background-color: darkred;
+    color: white;
+    width: 55px;
+    height: 28px;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 18px;
+    padding-top: 5px;
 }
 
 .Header {
-    width: 116px; 
-    height: 18px; 
-    padding-left:5px; 
-    padding-top:3px; 
-    float: left; 
-    color:white; 
+    width: 116px;
+    height: 18px;
+    padding-left: 5px;
+    padding-top: 3px;
+    float: left;
+    color: white;
     background-color: cadetblue;
+}
+
+.draggable {
+    float: left;
+    width: 121px;
+    height: 88px;
+    background-color: powderblue;
+    border: 1px solid black;
+    margin: 5px;
+    padding: 10px;
+}
+
+.droppable {
+    width: 1225px;
+    height: 120px;
+    margin: 0px;
+    padding: 5px;
+    border: 1px solid;
+    vertical-align: middle;
+    background-color:white;
+}
+
+.drop-hover {
+    padding: 2px;
+    border-width: 4px;
+}
+
+.divShadow2 {
+    width: 100%;
+    box-shadow: 0 2px 20px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    /*text-align: center;*/
 }
