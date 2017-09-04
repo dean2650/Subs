@@ -1,25 +1,25 @@
 #ZoneOn {
-    background-image: url("/assets/on.png");
+    background-image: url("/Assets/on.png");
     background-repeat: no-repeat;
     background-position: center;
     background-size: 260px;
 }
 
 #ZoneGoal {
-    background-image: url("/assets/goal.png");
+    background-image: url("/Assets/goal.png");
     background-repeat: no-repeat;
     background-position: center;
 }
 
 #ZoneOff {
-    background-image: url("/assets/off.png");
+    background-image: url("/Assets/off.png");
     background-repeat: no-repeat;
     background-position: center;
     background-size: 300px;
 }
 
 #ZoneAway {
-    background-image: url("/assets/away.png");
+    background-image: url("/Assets/away.png");
     background-repeat: no-repeat;
     background-position: center;
     background-size: 520px;
