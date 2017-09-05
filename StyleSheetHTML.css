@@ -1,5 +1,5 @@
 #ZoneOn {
-    background-image: url("Assets/on.png");
+    /*background-image: url("Assets/on.png");*/
     background-repeat: no-repeat;
     background-position: center;
     background-size: 260px;
@@ -12,14 +12,14 @@
 }
 
 #ZoneOff {
-    background-image: url("Assets/off.png");
+    /*background-image: url("Assets/off.png");*/
     background-repeat: no-repeat;
     background-position: center;
     background-size: 300px;
 }
 
 #ZoneAway {
-    background-image: url("Assets/away.png");
+    /*background-image: url("Assets/away.png");*/
     background-repeat: no-repeat;
     background-position: center;
     background-size: 520px;
@@ -67,10 +67,11 @@
     float: left;
     width: 121px;
     height: 88px;
-    background-color: powderblue;
+    background-color:#F0F0F0;
     border: 1px solid black;
     margin: 5px;
     padding: 10px;
+    box-shadow: 0 2px 20px 0 rgba(0, 0, 0, 0.4), 0 6px 20px 0 rgba(0, 0, 0, 0.2);
 }
 
 .droppable {
