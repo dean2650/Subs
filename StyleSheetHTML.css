@@ -1,5 +1,5 @@
 #ZoneOn {
-    /*background-image: url("Assets/on.png");*/
+    background-image: url("Assets/on.png");
     background-repeat: no-repeat;
     background-position: center;
     background-size: 260px;
@@ -12,14 +12,14 @@
 }
 
 #ZoneOff {
-    /*background-image: url("Assets/off.png");*/
+    background-image: url("Assets/off.png");
     background-repeat: no-repeat;
     background-position: center;
     background-size: 300px;
 }
 
 #ZoneAway {
-    /*background-image: url("Assets/away.png");*/
+    background-image: url("Assets/away.png");
     background-repeat: no-repeat;
     background-position: center;
     background-size: 520px;
