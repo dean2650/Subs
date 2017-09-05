@@ -9,12 +9,19 @@
     <script type="text/javascript" src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
     <script type="text/javascript" src="http://www.pureexample.com/js/lib/jquery.ui.touch-punch.min.js"></script>
 
+    <link href="https://fonts.googleapis.com/css?family=Droid+Sans+Mono" rel="stylesheet">
+
     <meta name="viewport" content="width=device-width,height=device-height,user-scalable=yes">
 </head>
 <body style="width: 100%; height: 100%; overflow: hidden; font-family: Tahoma; color: #892E2E; font-size: small">
 
     <form id="form1">
         <script>
+
+            function custom_compare(a, b) {
+                return a[1] - b[1];
+            }
+
             $(function () {
 
                 var mTop = 0;
@@ -40,6 +47,26 @@
                     drop: function (event, ui) {
                         var $this = $(this);
 
+                        if (event.target.id == "ZoneOff") {
+
+                            //remove class from ON
+                            ui.draggable.context.children[2].children[0].className = "";
+
+                            //Add class To OFF
+                            ui.draggable.context.children[3].children[0].className = "OFF";
+
+                        }
+
+                        if (event.target.id == "ZoneAway") {
+
+                            //remove class from ON
+                            ui.draggable.context.children[2].children[0].className = "";
+
+                            //Add class To OFF
+                            ui.draggable.context.children[3].children[0].className = "";
+
+                        }
+
                         if (event.target.id == "ZoneOn") {
 
                             // Check number of elements already in
@@ -50,15 +77,41 @@
                                 return;
                             }
 
+                            //assign class name to ON
+                            ui.draggable.context.children[2].children[0].className = "ON";
+
+                            //remove class from OFF
+                            ui.draggable.context.children[3].children[0].className = "";
+
+                        }
+
+                        if (event.target.id == "ZoneGoal") {
+
+                            // Check number of elements already in
+                            if ($this.find('.draggable').length >= 1) {
+                                // Cancel drag operation (make it always revert)
+                                ui.draggable.draggable('option', 'revert', true);
+
+                                return;
+                            }
+
+                            //assign class name to ON
+                            ui.draggable.context.children[2].children[0].className = "ON";
+
+                            //remove class from OFF
+                            ui.draggable.context.children[3].children[0].className = "";
+
                         }
 
                         var aa = ui.draggable.context;
+                        if (event.target.id == "ZoneGoal")
+                            aa.style.backgroundColor = "#84C5E8"
                         if (event.target.id == "ZoneOn")
-                            aa.style.backgroundColor = "darkseagreen"
+                            aa.style.backgroundColor = "limegreen"
                         if (event.target.id == "ZoneOff")
                             aa.style.backgroundColor = "orangered"
                         if (event.target.id == "ZoneAway")
-                            aa.style.backgroundColor = "powderblue"
+                            aa.style.backgroundColor = "#F0F0F0"
 
                         // Put dragged item into container
                         ui.draggable.appendTo($this).css({
@@ -82,21 +135,89 @@
 
                         });
 
+                        //check if goal and ON is set, if so, enable START button, else disable
+                        var ons = document.getElementsByClassName("ON");
+
+                        var start = document.getElementById("btnStartMatch");
+                        var subs = document.getElementById("btnResetSubs");
+                        if (ons.length == 5) {
+                            start.disabled = ""
+                            subs.disabled = ""
+                        }
+                        else {
+                            start.disabled = "disabled"
+                            subs.disabled = "disabled"
+                        }
+
 　
                     }
                 });
 
             });
         </script>
-        <div class="divShadow2" style="border: 0px solid #C2DBEF; background-color: #EAF0F7; padding: 20px; height: 840px; width: 1550px; margin-left: auto; margin-right: auto; text-align: center; box-sizing: border-box">
+        <div class="divShadow2" style="border: 0px solid #C2DBEF; background-color: #EAF0F7; padding: 20px; height: 840px; width: 1535px; margin-left: auto; margin-right: auto; text-align: center; box-sizing: border-box">
 
             <div class="divShadow2" style="float: left; width: 220px; height: 800px; background-color: white;">
+                <br />
+                &nbsp;
             </div>
 
             <div style="float: left; width: 30px; height: 800px;">
             </div>
 
-            <div style="float: left">
+            <div style="float: left;">
+
+                <div id="head" style="border-color: dodgerblue; height: 220px; width: 1235px;">
+
+                    <div id="ZoneGoal" class="droppable" style="border-color: dodgerblue; height: 130px; float: left; top: 100px; width: 155px;">
+                    </div>
+
+                    <div id="Workarea" class="divShadow2" style="width: 1000px; height: 230px; float: right; background-color: white; text-align: left; padding-left: 10px; padding-right: 10px;">
+                        <table style="width: 100%; height: 82px; padding: 0px; margin: 0px;">
+                            <tr>
+                                <td rowspan="2" style="width: 221px">
+                                    <label id="lblTime" style="font-size: 56pt; font-family: 'Droid Sans Mono'; color: dodgerblue">00:00</label>
+                                </td>
+                                <td>&nbsp;</td>
+                                <td rowspan="2" style="width: 148px">
+                                    <label id="lblHome" style="font-size: 56pt; font-family: 'Droid Sans Mono'; color: limegreen">0</label>
+                                    <label id="lblSep" style="font-size: 56pt; font-family: 'Droid Sans Mono'; color: black">:</label>
+                                    <label id="lblAway" style="font-size: 56pt; font-family: 'Droid Sans Mono'; color: firebrick">0</label>
+                                </td>
+                                <td>&nbsp;</td>
+                                <td rowspan="2" style="text-align: right; width: 228px;">
+                                    <label id="lblTimeLeft" style="font-size: 56pt; font-family: 'Droid Sans Mono'; color: rebeccapurple">00:00</label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                            </tr>
+                        </table>
+                        <table style="width: 100%">
+                            <tr>
+                                <td>
+                                    <input id="btnStartMatch" disabled="disabled" type="button" value="Start" style="width: 223px; height: 34px;" onclick="SwapMatchTime();" /></td>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                                <td style="text-align: right">
+                                    <input id="btnResetSubs" disabled="disabled" type="button" value="Reset Subs Timer" style="width: 223px; height: 34px;" onclick="ResetTime();" /></td>
+                            </tr>
+                            <tr>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                            </tr>
+                        </table>
+                    </div>
+
+                </div>
+                <br />
+
+　
+                <br />
+
                 <div id="ZoneOn" class="droppable" style="border-color: forestgreen;">
                 </div>
                 <br />
@@ -105,7 +226,7 @@
                 </div>
                 <br />
 
-                <div id="ZoneAway" class="droppable" style="border-color: gray">
+                <div id="ZoneAway" class="droppable" style="border-color: gray; height: 240px">
 
                     <div id="div3" class="draggable">
                         <div class="Header">
@@ -118,7 +239,7 @@
                             <label id="lblOn1" class="">0</label>
                         </div>
                         <div class="TimerOff">
-                            <label id="lblOff1" class="OFF">0</label>
+                            <label id="lblOff1" class="">0</label>
                         </div>
                     </div>
 
@@ -133,7 +254,7 @@
                             <label id="lblOn2" class="">0</label>
                         </div>
                         <div class="TimerOff">
-                            <label id="lblOff2" class="OFF">0</label>
+                            <label id="lblOff2" class="">0</label>
                         </div>
                     </div>
 
@@ -148,7 +269,7 @@
                             <label id="lblOn3" class="">0</label>
                         </div>
                         <div class="TimerOff">
-                            <label id="lblOff3" class="OFF">0</label>
+                            <label id="lblOff3" class="">0</label>
                         </div>
                     </div>
 
@@ -163,7 +284,7 @@
                             <label id="lblOn4" class="">0</label>
                         </div>
                         <div class="TimerOff">
-                            <label id="lblOff4" class="OFF">0</label>
+                            <label id="lblOff4" class="">0</label>
                         </div>
                     </div>
 
@@ -178,7 +299,7 @@
                             <label id="lblOn5" class="">0</label>
                         </div>
                         <div class="TimerOff">
-                            <label id="lblOff5" class="OFF">0</label>
+                            <label id="lblOff5" class="">0</label>
                         </div>
                     </div>
 
@@ -193,7 +314,7 @@
                             <label id="lblOn6" class="">0</label>
                         </div>
                         <div class="TimerOff">
-                            <label id="lblOff6" class="OFF">0</label>
+                            <label id="lblOff6" class="">0</label>
                         </div>
                     </div>
 
@@ -208,7 +329,7 @@
                             <label id="lblOn7" class="">0</label>
                         </div>
                         <div class="TimerOff">
-                            <label id="lblOff7" class="OFF">0</label>
+                            <label id="lblOff7" class="">0</label>
                         </div>
                     </div>
 
@@ -223,7 +344,22 @@
                             <label id="lblOn8" class="">0</label>
                         </div>
                         <div class="TimerOff">
-                            <label id="lblOff8" class="OFF">0</label>
+                            <label id="lblOff8" class="">0</label>
+                        </div>
+                    </div>
+
+                    <div id="div11" class="draggable">
+                        <div class="Header">
+                            <label id="Header11">Jjjjj</label>
+                        </div>
+                        <div style="float: left">
+                            <img id="Image11" src="Assets/j.png">
+                        </div>
+                        <div class="TimerOn">
+                            <label id="lblOn11" class="">0</label>
+                        </div>
+                        <div class="TimerOff">
+                            <label id="lblOff11" class="">0</label>
                         </div>
                     </div>
 
@@ -235,6 +371,169 @@
 
     </form>
 
+    <script type="text/javascript">
+
+        var mCtr = 0;
+        var mSubsTime = 300;
+        var inYellow;
+
+        function FixTimes(mTime) {
+            var totalSeconds = Math.abs(mTime);
+
+            var seconds = Math.floor(totalSeconds % 60);
+            var minutes = Math.floor(totalSeconds / 60);
+
+            if (mTime <= 0) {
+                return "-" + checkTime(minutes) + ":" + checkTime(seconds);
+            }
+            else {
+                return checkTime(minutes) + ":" + checkTime(seconds);
+            }
+
+        }
+
+        function checkTime(i) {
+            return (i > -10 && i < 10) ? "0" + i : i;
+        }
+
+        function ResetTime() {
+            mSubsTime = 300;
+            inYellow = false;
+        }
+
+        function SwapMatchTime(sender, args) {
+
+            var dd = document.getElementById("btnStartMatch");
+
+            if (dd.value == "Pause Match") {
+                dd.value = "Continue Match";
+                //stop subs timer
+                //SwapTime();
+            }
+            else {
+                dd.value = "Pause Match";
+                //SwapTime();
+            }
+
+        }
+
 　
+        function HighlightYellow() {
+            var ActualNbrSubs;
+
+            //find the top xx to take off
+            var ons = document.getElementsByClassName("ON");
+            var foo = [];
+            for (var i = ons.length - 1; i >= 0; i--) {
+
+                var mDiv = document.getElementById(ons[i].id).parentElement.parentElement;
+
+                //don't include if in goal
+                if (mDiv.parentElement.id == "ZoneOn") {
+                    //don't include if we are AlwaysOn
+                    if (mDiv.style.backgroundColor != "rgb(166, 191, 230)") {
+                        foo.push([mDiv, parseInt(ons[i].innerText)]);
+                    }
+                }
+            }
+            //sort in descending order
+            var xx = foo.sort(custom_compare).reverse();
+
+            var NbrSubs = document.getElementsByClassName("OFF").length;
+
+            //if we have less ON than NbrSubs, then recalculate
+            if (NbrSubs > xx.length)
+                ActualNbrSubs = xx.length;
+            else
+                ActualNbrSubs = NbrSubs;
+
+            //get top xx to come OFF
+            for (var i = 0; i <= ActualNbrSubs - 1; i++) {
+                var mOff = xx[i][0];
+
+                if (mOff.parentElement.id == "ZoneOn") {
+                    mOff.style.backgroundColor = "yellow";
+                }
+            }
+
+            //find top xx to put back ON
+            var offs = document.getElementsByClassName("OFF");
+            var foo = [];
+            for (var i = offs.length - 1; i >= 0; i--) {
+
+                var mDiv = document.getElementById(offs[i].id).parentElement.parentElement;
+
+                foo.push([mDiv, parseInt(offs[i].innerText)]);
+
+            }
+            //sort in descending order
+            var xx = foo.sort(custom_compare).reverse();
+
+            //put the same number OFF back ON
+            var offs = document.getElementsByClassName("OFF");
+
+            for (var i = 0; i <= ActualNbrSubs - 1; i++) {
+
+                var mOff = xx[i][0];
+                mOff.style.backgroundColor = "yellow";
+
+            }
+
+        }
+
+　
+        (function () {
+
+            function startTime() {
+
+                var btn = document.getElementById("btnStartMatch");
+
+                var ons = document.getElementsByClassName("ON");
+                var offs = document.getElementsByClassName("OFF");
+
+                //have we started the match...
+                if (btn.value == "Pause Match") {
+
+                    //update match time
+                    mCtr = mCtr + 1;
+                    lblTime.innerText = FixTimes(mCtr);
+
+                    mSubsTime = mSubsTime - 1;
+                    lblTimeLeft.innerText = FixTimes(mSubsTime);
+
+                    //UPDATE TIMES ON each dock
+                    for (var i = ons.length - 1; i >= 0; i--) {
+
+                        var ctr = parseInt(ons[i].innerText);
+                        ons[i].innerHTML = ctr + 1;
+                    }
+
+                    for (var i = offs.length - 1; i >= 0; i--) {
+
+                        var ctr = parseInt(offs[i].innerText);
+                        offs[i].innerHTML = ctr + 1;
+                    }
+
+                    //check if we are due for a subs change
+                    if (mSubsTime <= 280 && !inYellow) {
+
+                        inYellow = true;
+
+                        HighlightYellow();
+
+                    }
+
+　
+                }
+
+                t = setTimeout(function () {
+                    startTime()
+                }, 1000);
+            }
+            startTime();
+        })();
+
+    </script>
+
 </body>
 </html>
