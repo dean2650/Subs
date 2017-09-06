@@ -159,9 +159,9 @@
 
             <div style="float: left;">
 
-                <div id="head" style="border-color: dodgerblue; height: 220px; width: 1235px;">
+                <div id="head" style="border-color: dodgerblue; height: 360px; width: 1235px;">
 
-                    <div class="divShadow2" style="height: 210px; width: 320px; padding: 10px; background-color: white; float: left">
+                    <div class="divShadow2" style="height: 340px; width: 320px; padding: 10px; background-color: white; float: left">
                         <table style="width: 100%; text-align: left; color: #3D72AD;">
                             <tr>
                                 <td style="width: 83px">Always On</td>
@@ -177,23 +177,23 @@
                             </tr>
                         </table>
                         <br />
-                        <textarea id="TextArea1" name="S1" style="width: 306px; height: 78px"></textarea><br />
+                        <textarea id="TextArea1" name="S1" style="width: 306px; height: 206px">00:00 - Started&#013;&#010;02:44 - Goal by Brodie</textarea><br />
                         <br />
                         <input id="btnResetMatch" disabled="disabled" type="button" value="Reset" style="width: 95px; height: 28px;" onclick="SwapMatchTime();" />
                     </div>
 
-                    <div id="spacer" style="height: 230px; width: 40px; float: left">
+                    <div id="spacer" style="height: 380px; width: 40px; float: left">
                     </div>
 
-                    <div class="divShadow2" style="height: 230px; width: 280px; background-color: white; float: left">
-                        <div style="position: relative; top: -10px">
+                    <div class="divShadow2" style="height: 360px; width: 280px; background-color: white; float: left">
+                        <div style="height:114px">
                             <label id="lblHome" style="font-size: 56pt; font-family: 'Droid Sans Mono'; color: limegreen">0</label>
                             <label id="lblSep" style="font-size: 56pt; font-family: 'Droid Sans Mono'; color: black">:</label>
                             <label id="lblAway" style="font-size: 56pt; font-family: 'Droid Sans Mono'; color: firebrick">0</label>
 
                         </div>
-                        <div style="position:relative; top:-15px; ">
-                            <select id="Select1" name="D1" style="width: 230px">
+                        <div >
+                            <select id="Select1" name="D1" style="width: 230px; font-size:20pt">
                                 <option value="volvo">Aaaaa</option>
                                 <option value="saab">Bbbb</option>
                                 <option value="mercedes">Cccccc</option>
@@ -204,28 +204,28 @@
 
                         <table style="width: 100%">
                             <tr>
-                                <td style="height: 12px"></td>
+                                <td style="height: 39px"></td>
                             </tr>
                             <tr>
                                 <td>
-                                    <input id="btnResetMatch0" disabled="disabled" type="button" value="+ 1" style="width: 70px; height: 32px; font-size: 24px; color: #2BAA2B;" /></td>
+                                    <input id="btnResetMatch0" disabled="disabled" type="button" value="+ 1" style="width: 70px; height: 42px; font-size: 32px; color: #2BAA2B;" /></td>
                                 <td>
-                                    <input id="btnResetMatch2" disabled="disabled" type="button" value="+ 1" style="width: 70px; height: 32px; font-size: 24px; color: firebrick;" /></td>
+                                    <input id="btnResetMatch2" disabled="disabled" type="button" value="+ 1" style="width: 70px; height: 42px; font-size: 32px; color: firebrick;" /></td>
                             </tr>
                             <tr>
-                                <td>&nbsp;</td>
-                                <td>&nbsp;</td>
+                                <td style="height: 54px"></td>
+                                <td style="height: 54px"></td>
                             </tr>
                             <tr>
                                 <td>
-                                    <input id="btnResetMatch1" disabled="disabled" type="button" value="- 1" style="width: 70px; height: 24px; font-size: 16px; color: #2BAA2B;" /></td>
+                                    <input id="btnResetMatch1" disabled="disabled" type="button" value="- 1" style="width: 70px; height: 28px; font-size: 18px; color: #2BAA2B;" /></td>
                                 <td>
-                                    <input id="btnResetMatch3" disabled="disabled" type="button" value="- 1" style="width: 70px; height: 24px; font-size: 16px; color: firebrick;" /></td>
+                                    <input id="btnResetMatch3" disabled="disabled" type="button" value="- 1" style="width: 70px; height: 28px; font-size: 18px; color: firebrick;" /></td>
                             </tr>
                         </table>
                     </div>
 
-                    <div id="Workarea" class="divShadow2" style="width: 520px; height: 230px; float: right; background-color: white; text-align: left; padding-left: 10px; padding-right: 10px;">
+                    <div id="Workarea" class="divShadow2" style="width: 520px; height: 360px; float: right; background-color: white; text-align: left; padding-left: 10px; padding-right: 10px;">
                         <table style="width: 100%; height: 82px; padding: 0px; margin: 0px;">
                             <tr>
                                 <td style="width: 221px">
@@ -237,13 +237,11 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td style="width: 221px">
+                                <td style="width: 221px; text-align: center;">
                                     <label id="lblx" style="font-size: 10pt; color: dodgerblue">Game Time</label></td>
-                                </td>
                                 <td>&nbsp;</td>
-                                <td style="text-align: left; width: 193px;">
+                                <td style="text-align: center; width: 193px;">
                                     <label id="lblx1" style="font-size: 10pt; color: rebeccapurple">Subs Time</label></td>
-                                </td>
                             </tr>
                             <tr>
                                 <td style="width: 221px">
@@ -266,9 +264,7 @@
                     </div>
 
                 </div>
-                <br />
 
-　
                 <br />
 
                 <div id="ZoneOn" class="droppable" style="border-color: forestgreen;">
@@ -281,104 +277,106 @@
                     </div>
 
                     <div id="ZoneOff" class="droppable" style="border-color: orangered; width: 1000px; float: right">
+
+                        <div id="div3" class="draggable" style="background-color:orangered">
+                            <div class="Header">
+                                <label id="Header1">Aaaaa</label>
+                            </div>
+                            <div style="float: left">
+                                <img id="Image1" src="Assets/a.png">
+                            </div>
+                            <div class="TimerOn">
+                                <label id="lblOn1" class="">0</label>
+                            </div>
+                            <div class="TimerOff">
+                                <label id="lblOff1" class="OFF">0</label>
+                            </div>
+                        </div>
+
+                        <div id="div4" class="draggable"  style="background-color:orangered">
+                            <div class="Header">
+                                <label id="Header2">Bbbbb</label>
+                            </div>
+                            <div style="float: left">
+                                <img id="Image2" src="Assets/b.png">
+                            </div>
+                            <div class="TimerOn">
+                                <label id="lblOn2" class="">0</label>
+                            </div>
+                            <div class="TimerOff">
+                                <label id="lblOff2" class="OFF">0</label>
+                            </div>
+                        </div>
+
+                        <div id="div5" class="draggable"  style="background-color:orangered">
+                            <div class="Header">
+                                <label id="Header3">Ccccc</label>
+                            </div>
+                            <div style="float: left">
+                                <img id="Image3" src="Assets/c.png">
+                            </div>
+                            <div class="TimerOn">
+                                <label id="lblOn3" class="">0</label>
+                            </div>
+                            <div class="TimerOff">
+                                <label id="lblOff3" class="OFF">0</label>
+                            </div>
+                        </div>
+
+                        <div id="div6" class="draggable"  style="background-color:orangered">
+                            <div class="Header">
+                                <label id="Header4">Ddddd</label>
+                            </div>
+                            <div style="float: left">
+                                <img id="Image4" src="Assets/d.png">
+                            </div>
+                            <div class="TimerOn">
+                                <label id="lblOn4" class="">0</label>
+                            </div>
+                            <div class="TimerOff">
+                                <label id="lblOff4" class="OFF">0</label>
+                            </div>
+                        </div>
+
+                        <div id="div7" class="draggable"  style="background-color:orangered">
+                            <div class="Header">
+                                <label id="Header5">Eeeee</label>
+                            </div>
+                            <div style="float: left">
+                                <img id="Image5" src="Assets/e.png">
+                            </div>
+                            <div class="TimerOn">
+                                <label id="lblOn5" class="">0</label>
+                            </div>
+                            <div class="TimerOff">
+                                <label id="lblOff5" class="OFF">0</label>
+                            </div>
+                        </div>
+
+                        <div id="div8" class="draggable"  style="background-color:orangered">
+                            <div class="Header">
+                                <label id="Header6">Fffff</label>
+                            </div>
+                            <div style="float: left">
+                                <img id="Image6" src="Assets/f.png">
+                            </div>
+                            <div class="TimerOn">
+                                <label id="lblOn6" class="">0</label>
+                            </div>
+                            <div class="TimerOff">
+                                <label id="lblOff6" class="OFF">0</label>
+                            </div>
+                        </div>
+
                     </div>
 
                 </div>
 
                 <br />
 
-                <div id="ZoneAway" class="droppable" style="border-color: gray; height: 240px">
+                <div id="ZoneAway" class="droppable" style="border-color: gray;">
 
-                    <div id="div3" class="draggable">
-                        <div class="Header">
-                            <label id="Header1">Aaaaa</label>
-                        </div>
-                        <div style="float: left">
-                            <img id="Image1" src="Assets/a.png">
-                        </div>
-                        <div class="TimerOn">
-                            <label id="lblOn1" class="">0</label>
-                        </div>
-                        <div class="TimerOff">
-                            <label id="lblOff1" class="">0</label>
-                        </div>
-                    </div>
-
-                    <div id="div4" class="draggable">
-                        <div class="Header">
-                            <label id="Header2">Bbbbb</label>
-                        </div>
-                        <div style="float: left">
-                            <img id="Image2" src="Assets/b.png">
-                        </div>
-                        <div class="TimerOn">
-                            <label id="lblOn2" class="">0</label>
-                        </div>
-                        <div class="TimerOff">
-                            <label id="lblOff2" class="">0</label>
-                        </div>
-                    </div>
-
-                    <div id="div5" class="draggable">
-                        <div class="Header">
-                            <label id="Header3">Ccccc</label>
-                        </div>
-                        <div style="float: left">
-                            <img id="Image3" src="Assets/c.png">
-                        </div>
-                        <div class="TimerOn">
-                            <label id="lblOn3" class="">0</label>
-                        </div>
-                        <div class="TimerOff">
-                            <label id="lblOff3" class="">0</label>
-                        </div>
-                    </div>
-
-                    <div id="div6" class="draggable">
-                        <div class="Header">
-                            <label id="Header4">Ddddd</label>
-                        </div>
-                        <div style="float: left">
-                            <img id="Image4" src="Assets/d.png">
-                        </div>
-                        <div class="TimerOn">
-                            <label id="lblOn4" class="">0</label>
-                        </div>
-                        <div class="TimerOff">
-                            <label id="lblOff4" class="">0</label>
-                        </div>
-                    </div>
-
-                    <div id="div7" class="draggable">
-                        <div class="Header">
-                            <label id="Header5">Eeeee</label>
-                        </div>
-                        <div style="float: left">
-                            <img id="Image5" src="Assets/e.png">
-                        </div>
-                        <div class="TimerOn">
-                            <label id="lblOn5" class="">0</label>
-                        </div>
-                        <div class="TimerOff">
-                            <label id="lblOff5" class="">0</label>
-                        </div>
-                    </div>
-
-                    <div id="div8" class="draggable">
-                        <div class="Header">
-                            <label id="Header6">Fffff</label>
-                        </div>
-                        <div style="float: left">
-                            <img id="Image6" src="Assets/f.png">
-                        </div>
-                        <div class="TimerOn">
-                            <label id="lblOn6" class="">0</label>
-                        </div>
-                        <div class="TimerOff">
-                            <label id="lblOff6" class="">0</label>
-                        </div>
-                    </div>
-
+　
                     <div id="div9" class="draggable">
                         <div class="Header">
                             <label id="Header7">Gggggg</label>
@@ -411,10 +409,40 @@
 
                     <div id="div11" class="draggable">
                         <div class="Header">
-                            <label id="Header11">Jjjjj</label>
+                            <label id="Header9">Jjjjj</label>
                         </div>
                         <div style="float: left">
-                            <img id="Image11" src="Assets/j.png">
+                            <img id="Image9" src="Assets/j.png">
+                        </div>
+                        <div class="TimerOn">
+                            <label id="lblOn9" class="">0</label>
+                        </div>
+                        <div class="TimerOff">
+                            <label id="lblOff9" class="">0</label>
+                        </div>
+                    </div>
+
+                    <div id="div12" class="draggable">
+                        <div class="Header">
+                            <label id="Header10">Kkkkk</label>
+                        </div>
+                        <div style="float: left">
+                            <img id="Image10" src="Assets/k.png">
+                        </div>
+                        <div class="TimerOn">
+                            <label id="lblOn10" class="">0</label>
+                        </div>
+                        <div class="TimerOff">
+                            <label id="lblOff10" class="">0</label>
+                        </div>
+                    </div>
+
+                    <div id="div13" class="draggable">
+                        <div class="Header">
+                            <label id="Header11">Mmmmm</label>
+                        </div>
+                        <div style="float: left">
+                            <img id="Image11" src="Assets/m.png">
                         </div>
                         <div class="TimerOn">
                             <label id="lblOn11" class="">0</label>
