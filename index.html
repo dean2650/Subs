@@ -13,7 +13,7 @@
 
     <meta name="viewport" content="width=device-width,height=device-height,user-scalable=yes">
 </head>
-<body style="width: 100%; height: 100%; overflow: hidden; background-color: #EAF0F7; font-family: 'Droid Sans',Tahoma; color: #892E2E; font-size: small">
+<body style="width: 100%; height: 100%; overflow: hidden; background-color: #EAF0F7; color: #892E2E; font-size: small">
 
     <form id="form1">
         <script>
@@ -168,18 +168,18 @@
 
             });
         </script>
-        <div style="padding: 10px; width: 1231px; margin-left: auto; margin-right: auto; text-align: center;">
+        <div style="width: 1200px; margin-left: auto; margin-right: auto; text-align: center;">
 
             <div style="float: left;">
 
-                <div id="head" style="border-color: dodgerblue; height: 320px; width: 1235px;">
+                <div id="head" style="border-color: dodgerblue; height: 300px; width: 1190px;">
 
-                    <div class="divShadow2" style="height: 300px; width: 320px; padding: 10px; background-color: white; float: left">
+                    <div class="divShadow2" style="height: 280px; width: 320px; padding: 10px; background-color: white; float: left">
                         <table style="width: 100%; text-align: left; color: #3D72AD;">
                             <tr>
                                 <td style="width: 83px">Always On</td>
                                 <td>
-                                    <select id="SelectOn" name="D1" style="width: 230px; font-size: 12pt">
+                                    <select id="SelectOn" name="D1" style="width: 230px; font-size: 10pt">
                                         <option value="none">No-One</option>
                                         <option value="volvo">Aaaaa</option>
                                         <option value="saab">Bbbb</option>
@@ -196,7 +196,7 @@
                             <tr>
                                 <td style="width: 83px">Sub Changes</td>
                                 <td>
-                                    <select id="SelectSubs" name="D1" style="width: 70px; font-size: 12pt">
+                                    <select id="SelectSubs" name="D1" style="width: 70px; font-size: 10pt">
                                         <option value="5">5m</option>
                                         <option value="10">10m</option>
                                         <option value="15">15m</option>
@@ -205,24 +205,23 @@
                                 </td>
                             </tr>
                         </table>
-                        <br />
-                        <textarea id="TextArea1" name="S1" style="width: 306px; font-family: 'Droid Sans',Tahoma; height: 139px">00:00 - Started&#013;&#010;02:44 - Goal by Brodie</textarea><br />
+                        <textarea id="TextArea1" name="S1" style="width: 306px; font-family: 'Droid Sans',Tahoma; height: 123px">00:00 - Started&#013;&#010;02:44 - Goal by Brodie</textarea><br />
                         <br />
                         <input id="btnResetMatch" disabled="disabled" type="button" value="Reset" style="width: 95px; height: 28px;" onclick="SwapMatchTime();" />
                     </div>
 
-                    <div id="spacer" style="height: 320px; width: 40px; float: left">
+                    <div id="spacer" style="height: 320px; width: 35px; float: left">
                     </div>
 
-                    <div class="divShadow2" style="height: 320px; width: 280px; background-color: white; float: left">
+                    <div class="divShadow2" style="height: 300px; width: 250px; background-color: white; float: left">
                         <div style="height: 114px">
-                            <label id="lblHome" style="font-size: 56pt; font-family: 'Droid Sans Mono'; color: limegreen">0</label>
-                            <label id="lblSep" style="font-size: 56pt; font-family: 'Droid Sans Mono'; color: black">:</label>
-                            <label id="lblAway" style="font-size: 56pt; font-family: 'Droid Sans Mono'; color: firebrick">0</label>
+                            <label id="lblHome" style="font-size: 56pt; color: limegreen">0</label>
+                            <label id="lblSep" style="font-size: 56pt;  color: black">:</label>
+                            <label id="lblAway" style="font-size: 56pt; color: firebrick">0</label>
 
                         </div>
                         <div>
-                            <select id="Select1" name="D1" style="width: 230px; font-size: 12pt">
+                            <select id="Select1" name="D1" style="width: 170px; position:relative; top: -5px; font-size: 10pt">
                                 <option value="volvo">Aaaaa</option>
                                 <option value="saab">Bbbb</option>
                                 <option value="mercedes">Cccccc</option>
@@ -233,28 +232,28 @@
 
                         <table style="width: 100%">
                             <tr>
-                                <td style="height: 31px"></td>
+                                <td style="height: 21px"></td>
                             </tr>
                             <tr>
                                 <td>
-                                    <input id="btnHomePlus" disabled="disabled" type="button" value="+" style="width: 70px; height: 52px; font-size: 36px; color: #2BAA2B;" /></td>
+                                    <input id="btnHomePlus" disabled="disabled" type="button" value="+" style="width: 54px; height: 50px; font-size: 36px; color: #2BAA2B;" /></td>
                                 <td>
-                                    <input id="btnAwayPlus" disabled="disabled" type="button" value="+" style="width: 70px; height: 52px; font-size: 36px; color: firebrick;" /></td>
+                                    <input id="btnAwayPlus" disabled="disabled" type="button" value="+" style="width: 54px; height: 50px; font-size: 36px; color: firebrick;" /></td>
                             </tr>
                             <tr>
-                                <td style="height: 34px"></td>
-                                <td style="height: 34px"></td>
+                                <td style="height: 25px"></td>
+                                <td style="height: 25px"></td>
                             </tr>
                             <tr>
                                 <td>
-                                    <input id="btnHomeMinus" disabled="disabled" type="button" value="-" style="width: 70px; height: 30px; font-size: 22px; color: #2BAA2B;" /></td>
+                                    <input id="btnHomeMinus" disabled="disabled" type="button" value="-" style="width: 54px; height: 30px; font-size: 22px; color: #2BAA2B;" /></td>
                                 <td>
-                                    <input id="btnAwayMinus" disabled="disabled" type="button" value="-" style="width: 70px; height: 30px; font-size: 22px; color: firebrick;" /></td>
+                                    <input id="btnAwayMinus" disabled="disabled" type="button" value="-" style="width: 54px; height: 30px; font-size: 22px; color: firebrick;" /></td>
                             </tr>
                         </table>
                     </div>
 
-                    <div id="Workarea" class="divShadow2" style="width: 520px; height: 320px; float: right; background-color: white; text-align: left; padding-left: 10px; padding-right: 10px;">
+                    <div id="Workarea" class="divShadow2" style="width: 510px; height: 300px; float: right; background-color: white; text-align: left; padding-left: 10px; padding-right: 10px;">
                         <table style="width: 100%; height: 82px; padding: 0px; margin: 0px;">
                             <tr>
                                 <td style="width: 221px">
@@ -300,7 +299,7 @@
                 </div>
                 <br />
 
-                <div id="head1" style="height: 130px; width: 1235px;">
+                <div id="head1" style="height: 130px; width: 1190px;">
 
                     <div id="ZoneGoal" class="droppable" style="border-color: dodgerblue; height: 120px; float: left; top: 100px; width: 155px;">
                     </div>
@@ -345,7 +344,7 @@
                                 <img id="Image3" src="Assets/c.png">
                             </div>
                             <div class="TimerOn">
-                                <label id="lblOn3" class="">0</label>
+                                <label id="lblOn3" class="">8320</label>
                             </div>
                             <div class="TimerOff">
                                 <label id="lblOff3" class="OFF">0</label>
