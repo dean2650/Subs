@@ -33,7 +33,7 @@ body {
     float: right;
     background-color: forestgreen;
     color: white;
-    width: 54px;
+    width: 52px;
     height: 28px;
     text-align: center;
     vertical-align: middle;
@@ -49,7 +49,7 @@ body {
     float: right;
     background-color: darkred;
     color: white;
-    width: 54px;
+    width: 52px;
     height: 28px;
     text-align: center;
     vertical-align: middle;
@@ -58,7 +58,7 @@ body {
 }
 
 .Header {
-    width: 115px;
+    width: 113px;
     height: 18px;
     padding-left: 5px;
     padding-top: 3px;
@@ -71,7 +71,7 @@ body {
 
 .draggable {
     float: left;
-    width: 120px;
+    width: 118px;
     height: 88px;
     background-color:#F0F0F0;
     border: 1px solid black;
@@ -81,7 +81,7 @@ body {
 }
 
 .droppable {
-    width: 1180px;
+    width: 1163px;
     height: 120px;
     margin: 0px;
     padding: 5px;
