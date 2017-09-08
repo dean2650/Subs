@@ -18,6 +18,71 @@
     <form id="form1">
         <script>
 
+            var newline = "&#013;&#010;";
+
+            function RemoveGoal(myType) {
+                var txt = document.getElementById("txtArea");
+                var desc = txt.innerHTML;
+                var start = desc.lastIndexOf(myType);
+                var end = desc.indexOf("\n", start); //see if we have any newlines after this goal
+
+                start = start - 9; //get start of string
+
+                if (end == -1) {
+                    //this goal is the last one in txtarea
+                    txt.innerHTML = desc.substr(0, start);
+                }
+                else {
+                    //there are more goals after this one, so just remove this one
+                    txt.innerHTML = desc.substr(0, start) + newline + desc.substr(end + 1, desc.length);
+                }
+            }
+
+            function HomePlus() {
+                var lbl = document.getElementById("lblHome");
+                lbl.innerText = parseInt(lbl.innerText) + 1;
+
+                var txt = document.getElementById("txtArea");
+                var sel = document.getElementById("selGoal");
+                lbl = document.getElementById("lblTime");
+
+                txt.innerHTML = txt.innerHTML + newline + lbl.innerText + " - HOME Goal - " + sel.value;
+            }
+
+            function HomeMinus() {
+
+                var lbl = document.getElementById("lblHome");
+
+                if (parseInt(lbl.innerText) == "0") return;
+
+                lbl.innerText = parseInt(lbl.innerText) - 1;
+
+                RemoveGoal("HOME");
+
+            }
+
+            function AwayPlus() {
+                var lbl = document.getElementById("lblAway");
+                lbl.innerText = parseInt(lbl.innerText) + 1;
+
+                var txt = document.getElementById("txtArea");
+                lbl = document.getElementById("lblTime");
+
+                txt.innerHTML = txt.innerHTML + newline + lbl.innerText + " - AWAY Goal";
+            }
+
+            function AwayMinus() {
+
+                var lbl = document.getElementById("lblAway");
+
+                if (parseInt(lbl.innerText) == "0") return;
+
+                lbl.innerText = parseInt(lbl.innerText) - 1;
+
+                RemoveGoal("AWAY");
+
+            }
+
             function custom_compare(a, b) {
                 return a[1] - b[1];
             }
@@ -191,7 +256,7 @@
                             <tr>
                                 <td style="width: 83px">Away</td>
                                 <td>
-                                    <input id="Text1" type="text" /></td>
+                                    <input id="txtAway" type="text" /></td>
                             </tr>
                             <tr>
                                 <td style="width: 83px">Sub Changes</td>
@@ -205,7 +270,7 @@
                                 </td>
                             </tr>
                         </table>
-                        <textarea id="TextArea1" name="S1" style="width: 306px; font-family: 'Droid Sans',Tahoma; height: 123px">00:00 - Started&#013;&#010;02:44 - Goal by Brodie</textarea><br />
+                        <textarea id="txtArea" name="S1" style="width: 306px; font-family: 'Droid Sans',Tahoma; height: 123px"></textarea><br />
                         <br />
                         <input id="btnResetMatch" disabled="disabled" type="button" value="Reset" style="width: 95px; height: 28px;" onclick="SwapMatchTime();" />
                     </div>
@@ -221,7 +286,7 @@
 
                         </div>
                         <div>
-                            <select id="Select1" name="D1" style="width: 170px; position: relative; top: -5px; font-size: 10pt">
+                            <select id="selGoal" name="D1" style="width: 170px; position: relative; top: -5px; font-size: 10pt">
                                 <option value="volvo">Aaaaa</option>
                                 <option value="saab">Bbbb</option>
                                 <option value="mercedes">Cccccc</option>
@@ -236,9 +301,9 @@
                             </tr>
                             <tr>
                                 <td>
-                                    <input id="btnHomePlus" disabled="disabled" type="button" value="+" style="width: 54px; height: 50px; font-size: 36px; color: #2BAA2B;" /></td>
+                                    <input id="btnHomePlus" disabled="disabled" onclick="HomePlus();" type="button" value="+" style="width: 54px; height: 50px; font-size: 36px; color: #2BAA2B;" /></td>
                                 <td>
-                                    <input id="btnAwayPlus" disabled="disabled" type="button" value="+" style="width: 54px; height: 50px; font-size: 36px; color: firebrick;" /></td>
+                                    <input id="btnAwayPlus" disabled="disabled" onclick="AwayPlus();" type="button" value="+" style="width: 54px; height: 50px; font-size: 36px; color: firebrick;" /></td>
                             </tr>
                             <tr>
                                 <td style="height: 25px"></td>
@@ -246,9 +311,9 @@
                             </tr>
                             <tr>
                                 <td>
-                                    <input id="btnHomeMinus" disabled="disabled" type="button" value="-" style="width: 54px; height: 30px; font-size: 22px; color: #2BAA2B;" /></td>
+                                    <input id="btnHomeMinus" disabled="disabled" onclick="HomeMinus();" type="button" value="-" style="width: 54px; height: 30px; font-size: 22px; color: #2BAA2B;" /></td>
                                 <td>
-                                    <input id="btnAwayMinus" disabled="disabled" type="button" value="-" style="width: 54px; height: 30px; font-size: 22px; color: firebrick;" /></td>
+                                    <input id="btnAwayMinus" disabled="disabled" onclick="AwayMinus();" type="button" value="-" style="width: 54px; height: 30px; font-size: 22px; color: firebrick;" /></td>
                             </tr>
                         </table>
                     </div>
@@ -521,7 +586,6 @@
             zoneOn.style.backgroundColor = "silver";
         }
 
-　
         function SwapMatchTime(sender, args) {
 
             var dd = document.getElementById("btnStartMatch");
@@ -533,6 +597,12 @@
             }
             else {
                 dd.value = "Pause Match";
+
+                var txt = document.getElementById("txtArea");
+
+                if (txt.innerText == "") //only write start once
+                    txt.innerHTML = "00:00 - Game Started";
+
                 //SwapTime();
             }
 
