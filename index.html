@@ -192,6 +192,26 @@
                             if ($this.context.id == "ZoneOn") {
                                 if ($this.find('.draggable').length >= 4) {
                                     $this.context.style.backgroundColor = "silver"
+
+                                    var sel = document.getElementById("selGoal");
+
+                                    //clear out items
+                                    while (sel.options.length > 0) {
+                                        sel.remove(0);
+                                    }
+
+                                    //populate selGoals
+                                    var ON = document.getElementsByClassName("ON");
+                                    for (var i = ON.length - 1; i >= 0; i--) {
+
+                                        if (ON[i].parentElement.parentElement.parentElement.id != "ZoneGoal") {
+                                            var option = document.createElement("option");
+                                            option.text = document.getElementById("Header" + ON[i].id.substr(5, 2)).innerText;
+                                            option.value = option.text;
+                                            sel.add(option);
+                                        }
+                                    }
+
                                 }
                                 else {
                                     $this.context.style.backgroundColor = "white"
@@ -409,7 +429,7 @@
                                 <img id="Image3" src="Assets/c.png">
                             </div>
                             <div class="TimerOn">
-                                <label id="lblOn3" class="">8320</label>
+                                <label id="lblOn3" class="">0</label>
                             </div>
                             <div class="TimerOff">
                                 <label id="lblOff3" class="OFF">0</label>
