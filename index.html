@@ -18,6 +18,7 @@
     <form id="form1">
         <script>
 
+　
             var newline = "&#013;&#010;";
 
             function RemoveGoal(myType) {
@@ -200,7 +201,7 @@
                                         sel.remove(0);
                                     }
 
-                                    //populate selGoals
+                                    //populate selGoals dropdown
                                     var ON = document.getElementsByClassName("ON");
                                     for (var i = ON.length - 1; i >= 0; i--) {
 
@@ -211,6 +212,10 @@
                                             sel.add(option);
                                         }
                                     }
+
+                                    var opt = $("#selGoal option").sort(function (a, b) { return a.value.toUpperCase().localeCompare(b.value.toUpperCase()) });
+                                    $("#selGoal").append(opt);
+                                    $("#selGoal").find('option:first').attr('selected', 'selected');
 
                                 }
                                 else {
@@ -253,6 +258,7 @@
 
             });
         </script>
+
         <div style="width: 1200px; margin-left: auto; margin-right: auto; text-align: center;">
 
             <div style="float: left;">
@@ -265,11 +271,7 @@
                                 <td style="width: 83px">Always On</td>
                                 <td>
                                     <select id="SelectOn" name="D1" style="width: 230px; font-size: 10pt">
-                                        <option value="none">No-One2</option>
-                                        <option value="volvo">Aaaaa</option>
-                                        <option value="saab">Bbbb</option>
-                                        <option value="mercedes">Cccccc</option>
-                                        <option value="audi">Dddddd</option>
+                                        <option value="-99">** No-One **</option>
                                     </select>
                                 </td>
                             </tr>
@@ -290,7 +292,7 @@
                                 </td>
                             </tr>
                         </table>
-                        <textarea id="txtArea" name="S1" style="width: 306px; font-family: 'Droid Sans',Tahoma; height: 123px"></textarea><br />
+                        <textarea id="txtArea" name="S1" style="width: 306px; font-family: 'Droid Sans','Segoe UI', Tahoma, Geneva, Verdana, sans-serif; height: 123px"></textarea><br />
                         <br />
                         <input id="btnResetMatch" disabled="disabled" type="button" value="Reset" style="width: 95px; height: 28px;" onclick="SwapMatchTime();" />
                     </div>
@@ -307,10 +309,6 @@
                         </div>
                         <div>
                             <select id="selGoal" name="D1" style="width: 170px; position: relative; top: -5px; font-size: 10pt">
-                                <option value="volvo">Aaaaa</option>
-                                <option value="saab">Bbbb</option>
-                                <option value="mercedes">Cccccc</option>
-                                <option value="audi">Dddddd</option>
                             </select>
 
                         </div>
@@ -393,7 +391,7 @@
 
                         <div id="div3" class="draggable" style="background-color: orangered">
                             <div class="Header">
-                                <label style="top: -3px; position: relative" id="Header1">Aaaaa</label>
+                                <label style="top: -4px; position: relative" id="Header1">Aaaaa</label>
                             </div>
                             <div style="float: left">
                                 <img id="Image1" src="Assets/a.png">
@@ -408,7 +406,7 @@
 
                         <div id="div4" class="draggable" style="background-color: orangered">
                             <div class="Header">
-                                <label style="top: -3px; position: relative" id="Header2">Bbbbb</label>
+                                <label style="top: -4px; position: relative" id="Header2">Bbbbb</label>
                             </div>
                             <div style="float: left">
                                 <img id="Image2" src="Assets/b.png">
@@ -423,7 +421,7 @@
 
                         <div id="div5" class="draggable" style="background-color: orangered">
                             <div class="Header">
-                                <label style="top: -3px; position: relative" id="Header3">Ccccc</label>
+                                <label style="top: -4px; position: relative" id="Header3">Ccccc</label>
                             </div>
                             <div style="float: left">
                                 <img id="Image3" src="Assets/c.png">
@@ -446,7 +444,7 @@
 
                     <div id="div6" class="draggable">
                         <div class="Header">
-                            <label style="top: -3px; position: relative" id="Header4">Ddddd</label>
+                            <label style="top: -4px; position: relative" id="Header4">Ddddd</label>
                         </div>
                         <div style="float: left">
                             <img id="Image4" src="Assets/d.png">
@@ -461,7 +459,7 @@
 
                     <div id="div7" class="draggable">
                         <div class="Header">
-                            <label style="top: -3px; position: relative" id="Header5">Eeeee</label>
+                            <label style="top: -4px; position: relative" id="Header5">Eeeee</label>
                         </div>
                         <div style="float: left">
                             <img id="Image5" src="Assets/e.png">
@@ -476,7 +474,7 @@
 
                     <div id="div8" class="draggable">
                         <div class="Header">
-                            <label style="top: -3px; position: relative" id="Header6">Fffff</label>
+                            <label style="top: -4px; position: relative" id="Header6">Fffff</label>
                         </div>
                         <div style="float: left">
                             <img id="Image6" src="Assets/f.png">
@@ -492,7 +490,7 @@
 　
                     <div id="div9" class="draggable">
                         <div class="Header">
-                            <label style="top: -3px; position: relative" id="Header7">Gggggg</label>
+                            <label style="top: -4px; position: relative" id="Header7">Gggggg</label>
                         </div>
                         <div style="float: left">
                             <img id="Image7" src="Assets/g.png">
@@ -507,7 +505,7 @@
 
                     <div id="div10" class="draggable">
                         <div class="Header">
-                            <label style="top: -3px; position: relative" id="Header8">Hhhhhh</label>
+                            <label style="top: -4px; position: relative" id="Header8">Hhhhhh</label>
                         </div>
                         <div style="float: left">
                             <img id="Image8" src="Assets/h.png">
@@ -522,7 +520,7 @@
 
                     <div id="div11" class="draggable">
                         <div class="Header">
-                            <label style="top: -3px; position: relative" id="Header9">Jjjjj</label>
+                            <label style="top: -4px; position: relative" id="Header9">Jjjjj</label>
                         </div>
                         <div style="float: left">
                             <img id="Image9" src="Assets/j.png">
@@ -537,7 +535,7 @@
 
                     <div id="div12" class="draggable">
                         <div class="Header">
-                            <label style="top: -3px; position: relative" id="Header10">Kkkkk</label>
+                            <label style="top: -4px; position: relative" id="Header10">Kkkkk</label>
                         </div>
                         <div style="float: left">
                             <img id="Image10" src="Assets/k.png">
@@ -552,7 +550,7 @@
 
                     <div id="div13" class="draggable">
                         <div class="Header">
-                            <label style="top: -3px; position: relative" id="Header11">Mmmmm</label>
+                            <label style="top: -4px; position: relative" id="Header11">Mmmmm</label>
                         </div>
                         <div style="float: left">
                             <img id="Image11" src="Assets/m.png">
@@ -579,6 +577,30 @@
         var mSubsTime = 300;
         var inYellow;
 
+        var names = ["Brodie", "Macca", "Henry", "Lachie", "Mylo", "Jimmy", "Theo", "Zac", "Hugo", "Riley", "Pat"]
+
+        var sel = document.getElementById("SelectOn");
+
+        //load names into headers...
+        for (var i = names.length; i >= 1; i--) {
+            document.getElementById("Header" + i).innerText = names[i - 1];
+
+            document.getElementById("Image" + i).src = "Assets/" + names[i - 1] + ".png";
+
+            //load up SelectON dropdown
+            var option = document.createElement("option");
+            option.text = names[i - 1]
+            option.value = option.text;
+            sel.add(option);
+
+            //sort SelectOn
+            var opt = $("#SelectOn option").sort(function (a, b) { return a.value.toUpperCase().localeCompare(b.value.toUpperCase()) });
+            $("#SelectOn").append(opt);
+            $("#SelectOn").find('option:first').attr('selected', 'selected');
+
+        }
+
+　
         function FixTimes(mTime) {
             var totalSeconds = Math.abs(mTime);
 
