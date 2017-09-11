@@ -585,7 +585,7 @@
         for (var i = names.length; i >= 1; i--) {
             document.getElementById("Header" + i).innerText = names[i - 1];
 
-            document.getElementById("Image" + i).src = "~/Assets/" + names[i - 1] + ".png";
+            document.getElementById("Image" + i).src = "~/Assets/" + names[i - 1].toLowerCase() + ".png";
 
             //load up SelectON dropdown
             var option = document.createElement("option");
