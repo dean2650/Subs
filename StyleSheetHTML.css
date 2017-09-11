@@ -1,5 +1,5 @@
 body {
-    font-family: 'Droid Sans',Tahoma !important;
+    font-family: 'Droid Sans','Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
 }
 
 #ZoneOn {
@@ -66,7 +66,7 @@ body {
     color: white;
     background-color:steelblue;
     font-size:12pt;
-    font-family: 'Droid Sans',Tahoma !important;
+    font-family: 'Droid Sans','Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
 }
 
 .draggable {
