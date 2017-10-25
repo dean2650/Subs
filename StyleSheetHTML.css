@@ -103,10 +103,12 @@ body {
 
 .MakeBig {
     display:inline-block;
-    -webkit-transform: scale(5) !important;
+    /*-webkit-transform: scale(5) !important;
     -moz-transform: scale(5) !important;
     -o-transform: scale(5) !important;
-    transform: scale(5) !important;
+    transform: scale(5) !important;*/
+
+    transform: scale3d(9,9,1);
 
     transition: all 0.7s ease !important;
     -webkit-transition: all 0.7s ease !important;
