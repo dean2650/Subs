@@ -106,7 +106,12 @@ body {
     -moz-transform: scale(3);
     -o-transform: scale(3);
     transform: scale(3);
+
     transition: all 0.7s ease;
+    -webkit-transition: all 0.7s ease;
+    -moz-transition: all 0.7s ease;
+    -o-transition: all 0.7s ease;
+
     opacity: 0.1;
     z-index: 100;
 }
