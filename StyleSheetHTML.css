@@ -117,9 +117,9 @@ body {
 }
 
 .Big {
-    -webkit-transform: scale(120);
+    /*-webkit-transform: scale(120);
     -moz-transform: scale(120);
-    -o-transform: scale(120);
+    -o-transform: scale(120);*/
     transform: scale(120);
     transition: all 0.6s ease;
     opacity: 0;
