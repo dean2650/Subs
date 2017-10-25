@@ -1,100 +1,127 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title></title>
-    <link rel="stylesheet" type="text/css" href="StyleSheetHTML.css" />
+body {
+    font-family: 'Droid Sans','Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
+}
 
-    <script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
-    <script type="text/javascript" src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
+#ZoneOn {
+    background-image: url("Assets/on.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 260px;
+}
 
-    <meta charset="utf-8" />
-</head>
-<body style="width: 100%; height: 100%; overflow: hidden; background-color: #EAF0F7; color: #892E2E; font-family:Arial; font-size: small">
-    <script>
-        function HomePlus() {
-            var lbl = document.getElementById("lblHome");
-            lbl.innerText = parseInt(lbl.innerText) + 1;
+#ZoneGoal {
+    background-image: url("Assets/goal.png");
+    background-repeat: no-repeat;
+    background-position: center;
+}
 
-            $("#lblHome").addClass("MakeBig");
+#ZoneOff {
+    background-image: url("Assets/off.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 300px;
+}
 
-            $("#imgLogo").addClass("Big");
+#ZoneAway {
+    background-image: url("Assets/away.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 520px;
+}
 
-            setTimeout(function () {
-                $("#lblHome").removeClass("MakeBig");
-                $("#imgLogo").removeClass("Big");
-            }, 600);
+.TimerOn {
+    float: right;
+    background-color: forestgreen;
+    color: white;
+    width: 52px;
+    height: 28px;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 18px;
+    padding-top: 5px;
+}
 
-        }
+.Hidden {
+    display: none;
+}
 
-        function HomeMinus() {
+.TimerOff {
+    float: right;
+    background-color: darkred;
+    color: white;
+    width: 52px;
+    height: 28px;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 18px;
+    padding-top: 5px;
+}
 
-            var lbl = document.getElementById("lblHome");
-            if (parseInt(lbl.innerText) == "0") return;
-            lbl.innerText = parseInt(lbl.innerText) - 1;
+.Header {
+    width: 113px;
+    height: 18px;
+    padding-left: 5px;
+    padding-top: 3px;
+    float: left;
+    color: white;
+    background-color: steelblue;
+    font-size: 12pt;
+    font-family: 'Droid Sans','Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
+}
 
-            $("#lblHome").addClass("MakeBig");
+.draggable {
+    float: left;
+    width: 118px;
+    height: 88px;
+    background-color: #F0F0F0;
+    border: 1px solid black;
+    margin: 5px;
+    padding: 8px;
+    box-shadow: 0 2px 20px 0 rgba(0, 0, 0, 0.4), 0 6px 20px 0 rgba(0, 0, 0, 0.2);
+}
 
-            setTimeout(function () {
-                $("#lblHome").removeClass("MakeBig");
-            }, 600);
+.droppable {
+    width: 1185px;
+    height: 120px;
+    margin: 0px;
+    padding: 5px;
+    border: 1px solid;
+    vertical-align: middle;
+    background-color: white;
+}
 
-        }
+.drop-hover {
+    padding: 2px;
+    border-width: 4px;
+}
 
-        $(document).ready(function () {
+.divShadow2 {
+    width: 100%;
+    box-shadow: 0 2px 20px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    /*text-align: center;*/
+}
 
-　
-　
-            $("#lblHome").on("webkitAnimationEnd oAnimationEnd msAnimationEnd animationend", function (e) {
+.MakeBig {
+    -webkit-transform: scale(3) !important;
+    -moz-transform: scale(3) !important;
+    -o-transform: scale(3) !important;
+    transform: scale(3) !important;
 
-                $(this).removeClass("MakeBig");
-            })
-        });
+    transition: all 0.7s ease !important;
+    -webkit-transition: all 0.7s ease !important;
+    -moz-transition: all 0.7s ease !important;
+    -o-transition: all 0.7s ease !important;
 
-    </script><br />
+    opacity: 0.1;
+    z-index: 100;
+}
 
-    <img id="imgLogo" alt="" src="Assets/logo.png"  style="position:absolute; width:5px; left:700px; top:400px;" />
-
-    <div style="width: 1200px; margin-left: auto; margin-right: auto; text-align: center;">
-
-        <div class="divShadow2" style="height: 300px; width: 235px; left:300px; background-color: white; float: left">
-            <div style="height: 114px">
-                <label id="lblHome" style="font-size: 56pt; color: limegreen">0</label>
-                <label id="lblSep" style="font-size: 56pt; color: black">:</label>
-                <label id="lblAway" style="font-size: 56pt; color: firebrick">0</label>
-
-            </div>
-
-            <table style="width: 100%">
-                <tr>
-                    <td style="color: #249324">
-                        Demo
-                    </td>
-                    <td>
-                        Test
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <input id="btnHomePlus" onclick="HomePlus();" type="button" value="+" style="width: 54px; height: 50px; font-size: 36px; color: #2BAA2B;" />
-                    </td>
-                    <td>
-                        <input id="btnAwayPlus" onclick="AwayPlus();" type="button" value="+" style="width: 54px; height: 50px; font-size: 36px; color: firebrick;" />
-                    </td>
-                </tr>
-                <tr>
-                    <td style="height: 25px"></td>
-                    <td style="height: 25px"></td>
-                </tr>
-                <tr>
-                    <td>
-                        <input id="btnHomeMinus" onclick="HomeMinus();" type="button" value="-" style="width: 54px; height: 30px; font-size: 22px; color: #2BAA2B;" />
-                    </td>
-                    <td>
-                        <input id="btnAwayMinus" onclick="AwayMinus();" type="button" value="-" style="width: 54px; height: 30px; font-size: 22px; color: firebrick;" />
-                    </td>
-                </tr>
-            </table>
-        </div>
-    </div>
-</body>
-</html>
+.Big {
+    /*-webkit-transform: scale(120);
+    -moz-transform: scale(120);
+    -o-transform: scale(120);*/
+    transform: scale(120);
+    transition: all 0.6s ease;
+    opacity: 0;
+    z-index: 100;
+}
