@@ -11,6 +11,7 @@
 
     <link href="https://fonts.googleapis.com/css?family=Droid+Sans+Mono" rel="stylesheet">
 
+　
     <meta name="viewport" content="width=device-width,height=device-height,user-scalable=yes">
 </head>
 <body style="width: 100%; height: 100%; overflow: hidden; background-color: #EAF0F7; color: #892E2E; font-size: small">
@@ -20,6 +21,24 @@
 
 　
             var newline = "&#013;&#010;";
+
+            function AlwaysOn(_this) {
+
+                //change background to blue
+                var ON = document.getElementsByClassName("ON");
+                for (var i = ON.length - 1; i >= 0; i--) {
+
+                    if (ON[i].parentElement.parentElement.parentElement.id != "ZoneGoal") {
+
+                        if (document.getElementById("Header" + ON[i].id.substr(5, 2)).innerText == _this.value)
+                        {
+                            ON[i].parentElement.parentElement.style.backgroundColor = "#84C5E8";
+                        }
+                        else
+                            ON[i].parentElement.parentElement.style.backgroundColor = "limegreen";
+                    }
+                }
+            }
 
             function RemoveGoal(myType) {
                 var txt = document.getElementById("txtArea");
@@ -43,6 +62,12 @@
                 var lbl = document.getElementById("lblHome");
                 lbl.innerText = parseInt(lbl.innerText) + 1;
 
+                $("#lblHome").addClass("MakeBig");
+
+                setTimeout(function () {
+                    $("#lblHome").removeClass("MakeBig");
+                }, 600);
+
                 var txt = document.getElementById("txtArea");
                 var sel = document.getElementById("selGoal");
                 lbl = document.getElementById("lblTime");
@@ -58,6 +83,12 @@
 
                 lbl.innerText = parseInt(lbl.innerText) - 1;
 
+                $("#lblHome").addClass("MakeBig");
+
+                setTimeout(function () {
+                    $("#lblHome").removeClass("MakeBig");
+                }, 600);
+
                 RemoveGoal("HOME");
 
             }
@@ -65,6 +96,12 @@
             function AwayPlus() {
                 var lbl = document.getElementById("lblAway");
                 lbl.innerText = parseInt(lbl.innerText) + 1;
+
+                $("#lblAway").addClass("MakeBig");
+
+                setTimeout(function () {
+                    $("#lblAway").removeClass("MakeBig");
+                }, 600);
 
                 var txt = document.getElementById("txtArea");
                 lbl = document.getElementById("lblTime");
@@ -79,6 +116,12 @@
                 if (parseInt(lbl.innerText) == "0") return;
 
                 lbl.innerText = parseInt(lbl.innerText) - 1;
+
+                $("#lblAway").addClass("MakeBig");
+
+                setTimeout(function () {
+                    $("#lblAway").removeClass("MakeBig");
+                }, 600);
 
                 RemoveGoal("AWAY");
 
@@ -201,7 +244,7 @@
                                         sel.remove(0);
                                     }
 
-                                    //populate selGoals dropdown
+                                    //populate selGoals dropdown and SelectON
                                     var ON = document.getElementsByClassName("ON");
                                     for (var i = ON.length - 1; i >= 0; i--) {
 
@@ -270,7 +313,7 @@
                             <tr>
                                 <td style="width: 83px">Always On</td>
                                 <td>
-                                    <select id="SelectOn" name="D1" style="width: 230px; font-size: 10pt">
+                                    <select id="SelectOn" onchange="AlwaysOn(this)" name="D1" style="width: 230px; font-size: 10pt">
                                         <option value="-99">** No-One **</option>
                                     </select>
                                 </td>
@@ -315,7 +358,10 @@
 
                         <table style="width: 100%">
                             <tr>
-                                <td style="height: 21px"></td>
+                                <td style="color: #249324">
+                                    Home</td>
+                                <td>
+                                    Away</td>
                             </tr>
                             <tr>
                                 <td>
@@ -576,6 +622,10 @@
         var mCtr = 0;
         var mSubsTime = 300;
         var inYellow;
+        var half = 5; //put whatever figure this should be in seconds eg: 20min = 1200
+        var full = half * 2;
+        var Half2nd = false;
+        var newline = "&#013;&#010;";
 
         var names = ["Brodie", "Macca", "Henry", "Lachie", "Mylo", "Jimmy", "Theo", "Zac", "Hugo", "Riley", "Pat"]
 
@@ -585,7 +635,8 @@
         for (var i = names.length; i >= 1; i--) {
             document.getElementById("Header" + i).innerText = names[i - 1];
 
-            document.getElementById("Image" + i).src = "Assets/" + names[i - 1].toLowerCase() + ".png";
+            //load up images
+            //document.getElementById("Image" + i).src = "Assets/" + names[i - 1].toLowerCase() + ".png";
 
             //load up SelectON dropdown
             var option = document.createElement("option");
@@ -624,28 +675,46 @@
             mSubsTime = 300;
             inYellow = false;
 
+            //document.getElementById("zoneOn").style.backgroundColor = "";
+
+            //change background to silver (in case it was red)
             var zoneOn = document.getElementById("ZoneOn");
             zoneOn.style.backgroundColor = "silver";
+
+　
         }
 
         function SwapMatchTime(sender, args) {
 
             var dd = document.getElementById("btnStartMatch");
+            var txt = document.getElementById("txtArea");
 
+　
+            if (dd.value == "Start 2nd Half") {
+                //set timer to halftime + 1 second
+                //document.getElementById("lblTime").innerText = half + 1;
+
+                txt.innerHTML = txt.innerHTML + newline + FixTimes(half) +  " - 2nd Half Started";
+
+                //reset half to full - need to use a flag here instead later on
+                half = full;
+
+                ResetTime();
+
+            }
+            else
+            {
+                if (txt.innerText == "") //only write start once
+                    txt.innerHTML = "00:00 - Game Started";
+            }
+
+　
+　
             if (dd.value == "Pause Match") {
                 dd.value = "Continue Match";
-                //stop subs timer
-                //SwapTime();
             }
             else {
                 dd.value = "Pause Match";
-
-                var txt = document.getElementById("txtArea");
-
-                if (txt.innerText == "") //only write start once
-                    txt.innerHTML = "00:00 - Game Started";
-
-                //SwapTime();
             }
 
         }
@@ -664,7 +733,7 @@
                 //don't include if in goal
                 if (mDiv.parentElement.id == "ZoneOn") {
                     //don't include if we are AlwaysOn
-                    if (mDiv.style.backgroundColor != "rgb(166, 191, 230)") {
+                    if (mDiv.style.backgroundColor != "rgb(132, 197, 232)") {
                         foo.push([mDiv, parseInt(ons[i].innerText)]);
                     }
                 }
@@ -767,6 +836,54 @@
                             zoneOn.style.backgroundColor = "silver";
                     }
 
+                    //have we reached half or full ?
+                    if (mCtr >= half) {
+
+                        //stop subs time
+                        document.getElementById("lblTimeLeft").innerText = "00:00";
+
+                        //disable buttons
+                        document.getElementById("btnResetSubs").disabled = "disabled";
+
+                        var txt = document.getElementById("txtArea");
+
+                        //if 1st half...
+                        if (!Half2nd) {
+
+                            //set flag
+                            Half2nd = true;
+
+                            //add half to lblscores
+                            txt.innerHTML = txt.innerHTML + newline +  FixTimes(half) + " - HALF TIME";
+
+                            btn.innerText = "Start 2nd Half";
+
+                            //flash yellow the on/offs for next half
+                            HighlightYellow();
+
+                            //show lblmatchtimeview to show half
+                            //mview.style.fontSize = "40px";
+                            //mview.innerText = "Half Time";
+
+                        }
+                        else {
+                            //add half to lblscores
+                            txt.innerHTML = txt.innerHTML + newline + FixTimes(half) + " - FULL TIME";
+
+                            btn.innerText = "FULL TIME";
+
+                            btn.disabled = "disabled";
+
+                            //show lblmatchtimeview to show half
+                            //mview.style.fontSize = "40px";
+                            //mview.innerText = "FULL Time";
+                            //mview.style.backgroundColor = "yellow";
+
+                        }
+
+                    }
+
+　
                 }
 
                 t = setTimeout(function () {
