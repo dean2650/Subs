@@ -102,10 +102,11 @@ body {
 }
 
 .MakeBig {
-    -webkit-transform: scale(30) !important;
-    -moz-transform: scale(30) !important;
-    -o-transform: scale(30) !important;
-    transform: scale(30) !important;
+    display:inline-block;
+    -webkit-transform: scale(5) !important;
+    -moz-transform: scale(5) !important;
+    -o-transform: scale(5) !important;
+    transform: scale(5) !important;
 
     transition: all 0.7s ease !important;
     -webkit-transition: all 0.7s ease !important;
