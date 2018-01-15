@@ -663,7 +663,7 @@
             document.getElementById("Header" + i).innerText = names[i - 1];
 
             //load up images
-            //document.getElementById("Image" + i).src = "Assets/" + names[i - 1].toLowerCase() + ".png";
+            document.getElementById("Image" + i).src = "Assets/" + names[i - 1].toLowerCase() + ".png";
 
             //load up SelectON dropdown
             var option = document.createElement("option");
@@ -974,7 +974,6 @@
                 t = setTimeout(function () {
                     startTime()
                 }, 1000);
-                
             }
             startTime();
         })();
@@ -983,3 +982,4 @@
 
 </body>
 </html>
+
