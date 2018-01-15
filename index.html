@@ -11,7 +11,7 @@
 
     <link href="https://fonts.googleapis.com/css?family=Droid+Sans+Mono" rel="stylesheet">
 
-　
+
     <meta name="viewport" content="width=device-width,height=device-height,user-scalable=yes">
 </head>
 <body style="width: 100%; height: 100%; overflow: hidden; background-color: #EAF0F7; color: #892E2E; font-size: small">
@@ -19,8 +19,9 @@
     <form id="form1">
         <script>
 
-　
+
             var newline = "&#013;&#010;";
+            var onField = 7;
 
             function AlwaysOn(_this) {
 
@@ -30,8 +31,7 @@
 
                     if (ON[i].parentElement.parentElement.parentElement.id != "ZoneGoal") {
 
-                        if (document.getElementById("Header" + ON[i].id.substr(5, 2)).innerText == _this.value)
-                        {
+                        if (document.getElementById("Header" + ON[i].id.substr(5, 2)).innerText == _this.value) {
                             ON[i].parentElement.parentElement.style.backgroundColor = "#84C5E8";
                         }
                         else
@@ -179,7 +179,7 @@
                         if (event.target.id == "ZoneOn") {
 
                             // Check number of elements already in
-                            if ($this.find('.draggable').length >= 4) {
+                            if ($this.find('.draggable').length >= onField) {
                                 // Cancel drag operation (make it always revert)
                                 ui.draggable.draggable('option', 'revert', true);
 
@@ -234,7 +234,7 @@
                             var $this = $(this);
 
                             if ($this.context.id == "ZoneOn") {
-                                if ($this.find('.draggable').length >= 4) {
+                                if ($this.find('.draggable').length >= onField) {
                                     $this.context.style.backgroundColor = "silver"
 
                                     var sel = document.getElementById("selGoal");
@@ -278,7 +278,7 @@
                         var awayplus = document.getElementById("btnAwayPlus");
                         var awayminus = document.getElementById("btnAwayMinus");
 
-                        if (ons.length == 5) {
+                        if (ons.length == onField + 1) {
                             start.disabled = "";
                             subs.disabled = "";
                             homeplus.disabled = "";
@@ -295,7 +295,7 @@
                             awayminus.disabled = "disabled";
                         }
 
-　
+
                     }
                 });
 
@@ -358,10 +358,8 @@
 
                         <table style="width: 100%">
                             <tr>
-                                <td style="color: #249324">
-                                    Home</td>
-                                <td>
-                                    Away</td>
+                                <td style="color: #249324">Home</td>
+                                <td>Away</td>
                             </tr>
                             <tr>
                                 <td>
@@ -410,12 +408,41 @@
                         </table>
                         <table style="width: 100%">
                             <tr>
-                                <td>
+                                <td style="width: 235px">
                                     <input id="btnStartMatch" disabled="disabled" type="button" value="Start" style="width: 223px; height: 34px;" onclick="SwapMatchTime();" /></td>
                                 <td>&nbsp;</td>
                                 <td>&nbsp;</td>
                                 <td style="text-align: right">
                                     <input id="btnResetSubs" disabled="disabled" type="button" value="Reset Subs Timer" style="width: 223px; height: 34px;" onclick="ResetTime();" /></td>
+                            </tr>
+                            <tr>
+                                <td style="width: 235px">&nbsp;</td>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                                <td style="text-align: right">&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td colspan="4">
+                                    <label id="lblLastSubs" style="font-size: 10pt; color: rebeccapurple"></label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="width: 235px">
+                                    <label id="lblCurrentSubs" style="font-size: 10pt; display:none; color: rebeccapurple"></label>
+                                </td>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                                <td style="text-align: right">&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td style="width: 235px">
+                                    <label id="lblTodayDate" style="font-size: 20pt; font-weight: 600; color: dodgerblue"></label>
+                                </td>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                                <td style="text-align: right">
+                                    <label id="lblTodayTime" style="font-size: 20pt; font-weight: 600; color: dodgerblue"></label>
+                                </td>
                             </tr>
                         </table>
                     </div>
@@ -533,7 +560,7 @@
                         </div>
                     </div>
 
-　
+
                     <div id="div9" class="draggable">
                         <div class="Header">
                             <label style="top: -4px; position: relative" id="Header7">Gggggg</label>
@@ -622,7 +649,7 @@
         var mCtr = 0;
         var mSubsTime = 300;
         var inYellow;
-        var half = 5; //put whatever figure this should be in seconds eg: 20min = 1200
+        var half = 100; //put whatever figure this should be in seconds eg: 20min = 1200
         var full = half * 2;
         var Half2nd = false;
         var newline = "&#013;&#010;";
@@ -646,12 +673,45 @@
 
         }
 
+        var lSubs = document.getElementById("lblLastSubs");
+        var cSubs = document.getElementById("lblCurrentSubs");
+        lSubs.innerText = "Last Subs Change - ";
+        cSubs.innerText = "Last Subs Change - ";
+
+        var m_names = new Array("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec");
+
+        var d = new Date();
+        var curr_date = d.getDate();
+        var curr_month = d.getMonth();
+        var curr_year = d.getFullYear();
+
+        var tt = document.getElementById("lblTodayDate");
+        tt.innerText = curr_date + "-" + m_names[curr_month] + "-" + curr_year;
+
+        (function () {
+            function checkTime(i) {
+                return (i < 10) ? "0" + i : i;
+            }
+
+            function startTime() {
+                var today = new Date(),
+                    h = checkTime(today.getHours()),
+                    m = checkTime(today.getMinutes()),
+                    s = checkTime(today.getSeconds());
+                document.getElementById('lblTodayTime').innerText = h + ":" + m + ":" + s;
+                t = setTimeout(function () {
+                    startTime()
+                }, 500);
+            }
+            startTime();
+        })();
+
         //sort SelectOn
         var opt = $("#SelectOn option").sort(function (a, b) { return a.value.toUpperCase().localeCompare(b.value.toUpperCase()) });
         $("#SelectOn").append(opt);
         $("#SelectOn").find('option:first').attr('selected', 'selected');
 
-　
+
         function FixTimes(mTime) {
             var totalSeconds = Math.abs(mTime);
 
@@ -681,7 +741,9 @@
             var zoneOn = document.getElementById("ZoneOn");
             zoneOn.style.backgroundColor = "silver";
 
-　
+            var mSubs = document.getElementById("lblLastSubs");
+            mSubs.innerText = GetSubs();
+
         }
 
         function SwapMatchTime(sender, args) {
@@ -689,12 +751,14 @@
             var dd = document.getElementById("btnStartMatch");
             var txt = document.getElementById("txtArea");
 
-　
+            var mSubs = document.getElementById("lblLastSubs");
+            mSubs.innerText = GetSubs();
+
             if (dd.value == "Start 2nd Half") {
                 //set timer to halftime + 1 second
                 //document.getElementById("lblTime").innerText = half + 1;
 
-                txt.innerHTML = txt.innerHTML + newline + FixTimes(half) +  " - 2nd Half Started";
+                txt.innerHTML = txt.innerHTML + newline + FixTimes(half) + " - 2nd Half Started";
 
                 //reset half to full - need to use a flag here instead later on
                 half = full;
@@ -702,14 +766,13 @@
                 ResetTime();
 
             }
-            else
-            {
+            else {
                 if (txt.innerText == "") //only write start once
                     txt.innerHTML = "00:00 - Game Started";
             }
 
-　
-　
+
+
             if (dd.value == "Pause Match") {
                 dd.value = "Continue Match";
             }
@@ -719,7 +782,29 @@
 
         }
 
-　
+        function GetSubs() {
+            var pLine = "";
+
+            var mSubs = document.getElementById("lblCurrentSubs");
+
+            var ons = document.getElementsByClassName("OFF");
+
+            for (var i = 0; i <= ons.length - 1; i++) {
+
+                var xx = document.getElementById(ons[i].id).parentElement.parentElement.innerText;
+                var pos = xx.indexOf(" ")
+
+                pLine = pLine + xx.substring(0, pos) + ", ";
+            }
+
+            var pSubs = mSubs.innerText;
+
+            mSubs.innerText = "Previous Subs: " + pLine.substring(0, pLine.length - 2);
+
+            return pSubs;
+        }
+
+
         function HighlightYellow() {
             var ActualNbrSubs;
 
@@ -783,7 +868,7 @@
 
         }
 
-　
+
         (function () {
 
             function startTime() {
@@ -854,7 +939,7 @@
                             Half2nd = true;
 
                             //add half to lblscores
-                            txt.innerHTML = txt.innerHTML + newline +  FixTimes(half) + " - HALF TIME";
+                            txt.innerHTML = txt.innerHTML + newline + FixTimes(half) + " - HALF TIME";
 
                             btn.innerText = "Start 2nd Half";
 
@@ -883,12 +968,13 @@
 
                     }
 
-　
+
                 }
 
                 t = setTimeout(function () {
                     startTime()
                 }, 1000);
+                
             }
             startTime();
         })();
