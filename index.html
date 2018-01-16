@@ -651,7 +651,7 @@
         var mCtr = 0;
         var mSubsTime = 30;
         var inYellow;
-        var half = 100; //put whatever figure this should be in seconds eg: 20min = 1200
+        var half = 50; //put whatever figure this should be in seconds eg: 20min = 1200
         var full = half * 2;
         var Half2nd = false;
         var newline = "&#013;&#010;";
@@ -943,7 +943,7 @@
                             //add half to lblscores
                             txt.innerHTML = txt.innerHTML + newline + FixTimes(half) + " - HALF TIME";
 
-                            btn.innerText = "Start 2nd Half";
+                            btn.innerHTML = "Start 2nd Half";
 
                             //flash yellow the on/offs for next half
                             HighlightYellow();
@@ -957,7 +957,7 @@
                             //add half to lblscores
                             txt.innerHTML = txt.innerHTML + newline + FixTimes(half) + " - FULL TIME";
 
-                            btn.innerText = "FULL TIME";
+                            btn.innerHTML = "FULL TIME";
 
                             btn.disabled = "disabled";
 
