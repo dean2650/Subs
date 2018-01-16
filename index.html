@@ -19,6 +19,14 @@
     <form id="form1">
         <script>
 
+            //function OnClientClickedOK(button, args) {
+            //    if (window.confirm("Are you sure you want to RESTART this MATCH?")) {
+            //        button.set_autoPostBack(true);
+            //    }
+            //    else {
+            //        button.set_autoPostBack(false);
+            //    }
+            //}
 
             var newline = "&#013;&#010;";
             var onField = 7;
@@ -337,7 +345,7 @@
                         </table>
                         <textarea id="txtArea" name="S1" style="width: 306px; font-family: 'Droid Sans','Segoe UI', Tahoma, Geneva, Verdana, sans-serif; height: 123px"></textarea><br />
                         <br />
-                        <input id="btnResetMatch" disabled="disabled" type="button" value="Reset" style="width: 95px; height: 28px;" onclick="SwapMatchTime();" />
+                        <input id="btnResetMatch" type="button" value="Reset" style="width: 95px; height: 28px;" onclick="" />
                     </div>
 
                     <div id="spacer" style="height: 320px; width: 35px; float: left">
@@ -651,7 +659,7 @@
         var mCtr = 0;
         var mSubsTime = 30;
         var inYellow;
-        var half = 50; //put whatever figure this should be in seconds eg: 20min = 1200
+        var half = 40; //put whatever figure this should be in seconds eg: 20min = 1200
         var full = half * 2;
         var Half2nd = false;
         var newline = "&#013;&#010;";
@@ -772,7 +780,6 @@
                 if (txt.innerText == "") //only write start once
                     txt.innerHTML = "00:00 - Game Started";
             }
-
 
 
             if (dd.value == "Pause Match") {
@@ -943,7 +950,7 @@
                             //add half to lblscores
                             txt.innerHTML = txt.innerHTML + newline + FixTimes(half) + " - HALF TIME";
 
-                            btn.innerHTML = "Start 2nd Half";
+                            btn.innerText = "Start 2nd Half";
 
                             //flash yellow the on/offs for next half
                             HighlightYellow();
@@ -957,7 +964,7 @@
                             //add half to lblscores
                             txt.innerHTML = txt.innerHTML + newline + FixTimes(half) + " - FULL TIME";
 
-                            btn.innerHTML = "FULL TIME";
+                            btn.innerText = "FULL TIME";
 
                             btn.disabled = "disabled";
 
