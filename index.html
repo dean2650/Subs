@@ -1,223 +1,993 @@
-<!DOCTYPE html><html><head>    <title>Dean Demo</title>
-    <link rel="stylesheet" type="text/css" href="StyleSheetHTML.css" />
-    <script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>    <script type="text/javascript" src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>    <script type="text/javascript" src="http://www.pureexample.com/js/lib/jquery.ui.touch-punch.min.js"></script>
-    <link href="https://fonts.googleapis.com/css?family=Droid+Sans+Mono" rel="stylesheet">
-    <meta name="viewport" content="width=device-width,height=device-height,user-scalable=yes"></head><body style="width: 100%; height: 100%; overflow: hidden; background-color: #EAF0F7; color: #892E2E; font-size: small">
-    <form id="form1">        <script>
-            //function OnClientClickedOK(button, args) {            //    if (window.confirm("Are you sure you want to RESTART this MATCH?")) {            //        button.set_autoPostBack(true);            //    }            //    else {            //        button.set_autoPostBack(false);            //    }            //}
-            var newline = "&#013;&#010;";            var onField = 7;
-            function AlwaysOn(_this) {
-                //change background to blue                var ON = document.getElementsByClassName("ON");                for (var i = ON.length - 1; i >= 0; i--) {
-                    if (ON[i].parentElement.parentElement.parentElement.id != "ZoneGoal") {
-                        if (document.getElementById("Header" + ON[i].id.substr(5, 2)).innerText == _this.value) {                            ON[i].parentElement.parentElement.style.backgroundColor = "#84C5E8";                        }                        else                            ON[i].parentElement.parentElement.style.backgroundColor = "limegreen";                    }                }            }
-            function RemoveGoal(myType) {                var txt = document.getElementById("txtArea");                var desc = txt.innerHTML;                var start = desc.lastIndexOf(myType);                var end = desc.indexOf("\n", start); //see if we have any newlines after this goal
-                start = start - 9; //get start of string
-                if (end == -1) {                    //this goal is the last one in txtarea                    txt.innerHTML = desc.substr(0, start);                }                else {                    //there are more goals after this one, so just remove this one                    txt.innerHTML = desc.substr(0, start) + newline + desc.substr(end + 1, desc.length);                }            }
-            function HomePlus() {                var lbl = document.getElementById("lblHome");                lbl.innerText = parseInt(lbl.innerText) + 1;
-                $("#lblHome").addClass("MakeBig");
-                setTimeout(function () {                    $("#lblHome").removeClass("MakeBig");                }, 700);
-                var txt = document.getElementById("txtArea");                var sel = document.getElementById("selGoal");                lbl = document.getElementById("lblTime");
-                txt.innerHTML = txt.innerHTML + newline + lbl.innerText + " - HOME Goal - " + sel.value;            }
-            function HomeMinus() {
-                var lbl = document.getElementById("lblHome");
-                if (parseInt(lbl.innerText) == "0") return;
-                lbl.innerText = parseInt(lbl.innerText) - 1;
-                $("#lblHome").addClass("MakeBig");
-                setTimeout(function () {                    $("#lblHome").removeClass("MakeBig");                }, 700);
-                RemoveGoal("HOME");
-            }
-            function AwayPlus() {                var lbl = document.getElementById("lblAway");                lbl.innerText = parseInt(lbl.innerText) + 1;
-                $("#lblAway").addClass("MakeBig");
-                setTimeout(function () {                    $("#lblAway").removeClass("MakeBig");                }, 700);
-                var txt = document.getElementById("txtArea");                lbl = document.getElementById("lblTime");
-                txt.innerHTML = txt.innerHTML + newline + lbl.innerText + " - AWAY Goal";            }
-            function AwayMinus() {
-                var lbl = document.getElementById("lblAway");
-                if (parseInt(lbl.innerText) == "0") return;
-                lbl.innerText = parseInt(lbl.innerText) - 1;
-                $("#lblAway").addClass("MakeBig");
-                setTimeout(function () {                    $("#lblAway").removeClass("MakeBig");                }, 700);
-                RemoveGoal("AWAY");
-            }
-            function custom_compare(a, b) {                return a[1] - b[1];            }
-            $(function () {
-                var mTop = 0;
-                $('.draggable').draggable({
-                    zIndex: 9700,
-                    revert: 'invalid', opacity: 0.65,
-                    stop: function (event, ui) {
-                        // Make it properly draggable again                        $(this).draggable('option', 'revert', 'invalid');                    }
-                });
-                $('.droppable').droppable({
-                    hoverClass: "drop-hover",
-                    drop: function (event, ui) {                        var $this = $(this);
-                        if (event.target.id == "ZoneOff") {
-                            //remove class from ON                            ui.draggable.context.children[2].children[0].className = "";
-                            //Add class To OFF                            ui.draggable.context.children[3].children[0].className = "OFF";
-                        }
-                        if (event.target.id == "ZoneAway") {
-                            //remove class from ON                            ui.draggable.context.children[2].children[0].className = "";
-                            //Add class To OFF                            ui.draggable.context.children[3].children[0].className = "";
-                        }
-                        if (event.target.id == "ZoneOn") {
-                            // Check number of elements already in                            if ($this.find('.draggable').length >= onField) {                                // Cancel drag operation (make it always revert)                                ui.draggable.draggable('option', 'revert', true);
-                                return;                            }
-                            //assign class name to ON                            ui.draggable.context.children[2].children[0].className = "ON";
-                            //remove class from OFF                            ui.draggable.context.children[3].children[0].className = "";
-                        }
-                        if (event.target.id == "ZoneGoal") {
-                            // Check number of elements already in                            if ($this.find('.draggable').length >= 1) {                                // Cancel drag operation (make it always revert)                                ui.draggable.draggable('option', 'revert', true);
-                                return;                            }
-                            //assign class name to ON                            ui.draggable.context.children[2].children[0].className = "ON";
-                            //remove class from OFF                            ui.draggable.context.children[3].children[0].className = "";
-                        }
-                        var aa = ui.draggable.context;                        if (event.target.id == "ZoneGoal")                            aa.style.backgroundColor = "#84C5E8"                        if (event.target.id == "ZoneOn")                            aa.style.backgroundColor = "limegreen"                        if (event.target.id == "ZoneOff")                            aa.style.backgroundColor = "orangered"                        if (event.target.id == "ZoneAway")                            aa.style.backgroundColor = "#F0F0F0"
-                        // Put dragged item into container                        ui.draggable.appendTo($this).css({                            top: '0px',                            left: '0px'                        });
-                        //if we are dragging out of zoneON, then (in the each loop) change bg                        $('.droppable').each(function () {
-                            var $this = $(this);
-                            if ($this.context.id == "ZoneOn") {                                if ($this.find('.draggable').length >= onField) {                                    $this.context.style.backgroundColor = "silver"
-                                    var sel = document.getElementById("selGoal");
-                                    //clear out items                                    while (sel.options.length > 0) {                                        sel.remove(0);                                    }
-                                    //populate selGoals dropdown and SelectON                                    var ON = document.getElementsByClassName("ON");                                    for (var i = ON.length - 1; i >= 0; i--) {
-                                        if (ON[i].parentElement.parentElement.parentElement.id != "ZoneGoal") {                                            var option = document.createElement("option");                                            option.text = document.getElementById("Header" + ON[i].id.substr(5, 2)).innerText;                                            option.value = option.text;                                            sel.add(option);                                        }                                    }
-                                    var opt = $("#selGoal option").sort(function (a, b) { return a.value.toUpperCase().localeCompare(b.value.toUpperCase()) });                                    $("#selGoal").append(opt);                                    $("#selGoal").find('option:first').attr('selected', 'selected');
-                                }                                else {                                    $this.context.style.backgroundColor = "white"                                }                            }
-                        });
-                        //check if goal and ON is set, if so, enable START button, else disable                        var ons = document.getElementsByClassName("ON");
-                        var start = document.getElementById("btnStartMatch");                        var subs = document.getElementById("btnResetSubs");                        var homeplus = document.getElementById("btnHomePlus");                        var homeminus = document.getElementById("btnHomeMinus");                        var awayplus = document.getElementById("btnAwayPlus");                        var awayminus = document.getElementById("btnAwayMinus");
-                        if (ons.length == onField + 1) {                            start.disabled = "";                            subs.disabled = "";                            homeplus.disabled = "";                            homeminus.disabled = "";                            awayplus.disabled = "";                            awayminus.disabled = "";                        }                        else {                            start.disabled = "disabled";                            subs.disabled = "disabled";                            homeplus.disabled = "disabled";                            homeminus.disabled = "disabled";                            awayplus.disabled = "disabled";                            awayminus.disabled = "disabled";                        }
-                    }                });
-            });        </script>
-        <div style="width: 1180px; margin-left: auto; margin-right: auto; text-align: center;">
-            <div style="float: left;">
-                <div id="head" style="border-color: dodgerblue; height: 300px; width: 1175px;">
-                    <div class="divShadow2" style="height: 280px; width: 320px; padding: 10px; background-color: white; float: left">                        <table style="width: 100%; text-align: left; color: #3D72AD;">                            <tr>                                <td style="width: 83px">Always On</td>                                <td>                                    <select id="SelectOn" onchange="AlwaysOn(this)" name="D1" style="width: 230px; font-size: 10pt">                                        <option value="-99">** No-One **</option>                                    </select>                                </td>                            </tr>                            <tr>                                <td style="width: 83px">Away</td>                                <td>                                    <input id="txtAway" type="text" /></td>                            </tr>                            <tr>                                <td style="width: 83px">Sub Changes</td>                                <td>                                    <select id="SelectSubs" name="D1" style="width: 70px; font-size: 10pt">                                        <option value="5">5m</option>                                        <option value="10">10m</option>                                        <option value="15">15m</option>                                        <option value="20">20m</option>                                    </select>                                </td>                            </tr>                        </table>                        <textarea id="txtArea" name="S1" style="width: 306px; font-family: 'Droid Sans','Segoe UI', Tahoma, Geneva, Verdana, sans-serif; height: 123px"></textarea><br />                        <br />                        <input id="btnResetMatch" type="button" value="Reset" style="width: 95px; height: 28px;" onclick="" />                    </div>
-                    <div id="spacer" style="height: 320px; width: 35px; float: left">                    </div>
-                    <div class="divShadow2" style="height: 300px; width: 235px; background-color: white; float: left">                        <div style="height: 114px">                            <label id="lblHome" style="font-size: 56pt; color: limegreen">0</label>                            <label id="lblSep" style="font-size: 56pt; color: black">:</label>                            <label id="lblAway" style="font-size: 56pt; color: firebrick">0</label>
-                        </div>                        <div>                            <select id="selGoal" name="D1" style="width: 170px; position: relative; top: -5px; font-size: 10pt">                            </select>
-                        </div>
-                        <table style="width: 100%">                            <tr>                                <td style="color: #249324">Home</td>                                <td>Away</td>                            </tr>                            <tr>                                <td>                                    <strong>                                    <input id="btnHomePlus" disabled="disabled" onclick="HomePlus();" type="button" value="+" style="width: 54px; height: 40px; font-size: 22px; color: #2BAA2B; font-weight: bold;" /></strong></td>                                <td>                                    <strong>                                    <input id="btnAwayPlus" disabled="disabled" onclick="AwayPlus();" type="button" value="+" style="width: 54px; height: 40px; font-size: 22px; color: firebrick; font-weight: bold;" /></strong></td>                            </tr>                            <tr>                                <td style="height: 25px"></td>                                <td style="height: 25px"></td>                            </tr>                            <tr>                                <td>                                    <input id="btnHomeMinus" disabled="disabled" onclick="HomeMinus();" type="button" value="-" style="width: 54px; height: 30px; font-size: 22px; color: #2BAA2B;" /></td>                                <td>                                    <input id="btnAwayMinus" disabled="disabled" onclick="AwayMinus();" type="button" value="-" style="width: 54px; height: 30px; font-size: 22px; color: firebrick;" /></td>                            </tr>                        </table>                    </div>
-                    <div id="Workarea" class="divShadow2" style="width: 505px; height: 300px; float: right; background-color: white; text-align: left; padding-left: 10px; padding-right: 10px;">                        <table style="width: 100%; height: 82px; padding: 0px; margin: 0px;">                            <tr>                                <td style="width: 221px">                                    <label id="lblTime" style="font-size: 56pt; font-family: 'Droid Sans Mono'; color: dodgerblue">00:00</label>                                </td>                                <td></td>                                <td style="text-align: left; width: 193px;">                                    <label id="lblTimeLeft" style="font-size: 56pt; font-family: 'Droid Sans Mono'; color: rebeccapurple">00:00</label>                                </td>                            </tr>                            <tr>                                <td style="width: 221px; text-align: center;">                                    <label id="lblx" style="font-size: 10pt; color: dodgerblue">Game Time</label></td>                                <td>&nbsp;</td>                                <td style="text-align: center; width: 193px;">                                    <label id="lblx1" style="font-size: 10pt; color: rebeccapurple">Subs Time</label></td>                            </tr>                            <tr>                                <td style="width: 221px">                                    <br />                                </td>                                <td>&nbsp;</td>                                <td style="text-align: left; width: 193px;">&nbsp;</td>                            </tr>                        </table>                        <table style="width: 100%">                            <tr>                                <td style="width: 235px">                                    <input id="btnStartMatch" disabled="disabled" type="button" value="Start" style="width: 223px; height: 34px; font-size: 20px;" onclick="SwapMatchTime();" /></td>                                <td>&nbsp;</td>                                <td>&nbsp;</td>                                <td style="text-align: right">                                    <input id="btnResetSubs" disabled="disabled" type="button" value="Reset Subs Timer" style="width: 223px; height: 34px; font-size: 20px;" onclick="ResetTime();" /></td>                            </tr>                            <tr>                                <td style="width: 235px">&nbsp;</td>                                <td>&nbsp;</td>                                <td>&nbsp;</td>                                <td style="text-align: right">&nbsp;</td>                            </tr>                            <tr>                                <td colspan="4">                                    <label id="lblLastSubs" style="font-size: 10pt; color: rebeccapurple"></label>                                </td>                            </tr>                            <tr>                                <td style="width: 235px">                                    <label id="lblCurrentSubs" style="font-size: 10pt; display:none; color: rebeccapurple"></label>                                </td>                                <td>&nbsp;</td>                                <td>&nbsp;</td>                                <td style="text-align: right">&nbsp;</td>                            </tr>                            <tr>                                <td style="width: 235px">                                    <label id="lblTodayDate" style="font-size: 20pt; font-weight: 600; color: dodgerblue"></label>                                </td>                                <td>&nbsp;</td>                                <td>&nbsp;</td>                                <td style="text-align: right">                                    <label id="lblTodayTime" style="font-size: 20pt; font-weight: 600; color: dodgerblue"></label>                                </td>                            </tr>                        </table>                    </div>
-                </div>
-                <br />
-                <div id="ZoneOn" class="droppable" style="border-color: forestgreen;">                </div>                <br />
-                <div id="head1" style="height: 130px; width: 1175px;">
-                    <div id="ZoneGoal" class="droppable" style="border-color: dodgerblue; height: 120px; float: left; top: 100px; width: 147px;">                    </div>
-                    <div id="ZoneOff" class="droppable" style="border-color: orangered; width: 925px; float: right">
-                        <div id="div3" class="draggable" style="background-color: orangered">                            <div class="Header">                                <label style="top: -4px; position: relative" id="Header1">Aaaaa</label>                            </div>                            <div style="float: left">                                <img id="Image1" src="Assets/a.png">                            </div>                            <div class="TimerOn">                                <label id="lblOn1" class="">0</label>                            </div>                            <div class="TimerOff">                                <label id="lblOff1" class="OFF">0</label>                            </div>                        </div>
-                        <div id="div4" class="draggable" style="background-color: orangered">                            <div class="Header">                                <label style="top: -4px; position: relative" id="Header2">Bbbbb</label>                            </div>                            <div style="float: left">                                <img id="Image2" src="Assets/b.png">                            </div>                            <div class="TimerOn">                                <label id="lblOn2" class="">0</label>                            </div>                            <div class="TimerOff">                                <label id="lblOff2" class="OFF">0</label>                            </div>                        </div>
-                        <div id="div5" class="draggable" style="background-color: orangered">                            <div class="Header">                                <label style="top: -4px; position: relative" id="Header3">Ccccc</label>                            </div>                            <div style="float: left">                                <img id="Image3" src="Assets/c.png">                            </div>                            <div class="TimerOn">                                <label id="lblOn3" class="">0</label>                            </div>                            <div class="TimerOff">                                <label id="lblOff3" class="OFF">0</label>                            </div>                        </div>
-                    </div>
-                </div>
-                <br />
-                <div id="ZoneAway" class="droppable" style="border-color: gray;">
-                    <div id="div6" class="draggable">                        <div class="Header">                            <label style="top: -4px; position: relative" id="Header4">Ddddd</label>                        </div>                        <div style="float: left">                            <img id="Image4" src="Assets/d.png">                        </div>                        <div class="TimerOn">                            <label id="lblOn4" class="">0</label>                        </div>                        <div class="TimerOff">                            <label id="lblOff4" class="">0</label>                        </div>                    </div>
-                    <div id="div7" class="draggable">                        <div class="Header">                            <label style="top: -4px; position: relative" id="Header5">Eeeee</label>                        </div>                        <div style="float: left">                            <img id="Image5" src="Assets/e.png">                        </div>                        <div class="TimerOn">                            <label id="lblOn5" class="">0</label>                        </div>                        <div class="TimerOff">                            <label id="lblOff5" class="">0</label>                        </div>                    </div>
-                    <div id="div8" class="draggable">                        <div class="Header">                            <label style="top: -4px; position: relative" id="Header6">Fffff</label>                        </div>                        <div style="float: left">                            <img id="Image6" src="Assets/f.png">                        </div>                        <div class="TimerOn">                            <label id="lblOn6" class="">0</label>                        </div>                        <div class="TimerOff">                            <label id="lblOff6" class="">0</label>                        </div>                    </div>
-                    <div id="div9" class="draggable">                        <div class="Header">                            <label style="top: -4px; position: relative" id="Header7">Gggggg</label>                        </div>                        <div style="float: left">                            <img id="Image7" src="Assets/g.png">                        </div>                        <div class="TimerOn">                            <label id="lblOn7" class="">0</label>                        </div>                        <div class="TimerOff">                            <label id="lblOff7" class="">0</label>                        </div>                    </div>
-                    <div id="div10" class="draggable">                        <div class="Header">                            <label style="top: -4px; position: relative" id="Header8">Hhhhhh</label>                        </div>                        <div style="float: left">                            <img id="Image8" src="Assets/h.png">                        </div>                        <div class="TimerOn">                            <label id="lblOn8" class="">0</label>                        </div>                        <div class="TimerOff">                            <label id="lblOff8" class="">0</label>                        </div>                    </div>
-                    <div id="div11" class="draggable">                        <div class="Header">                            <label style="top: -4px; position: relative" id="Header9">Jjjjj</label>                        </div>                        <div style="float: left">                            <img id="Image9" src="Assets/j.png">                        </div>                        <div class="TimerOn">                            <label id="lblOn9" class="">0</label>                        </div>                        <div class="TimerOff">                            <label id="lblOff9" class="">0</label>                        </div>                    </div>
-                    <div id="div12" class="draggable">                        <div class="Header">                            <label style="top: -4px; position: relative" id="Header10">Kkkkk</label>                        </div>                        <div style="float: left">                            <img id="Image10" src="Assets/k.png">                        </div>                        <div class="TimerOn">                            <label id="lblOn10" class="">0</label>                        </div>                        <div class="TimerOff">                            <label id="lblOff10" class="">0</label>                        </div>                    </div>
-                    <div id="div13" class="draggable">                        <div class="Header">                            <label style="top: -4px; position: relative" id="Header11">Mmmmm</label>                        </div>                        <div style="float: left">                            <img id="Image11" src="Assets/m.png">                        </div>                        <div class="TimerOn">                            <label id="lblOn11" class="">0</label>                        </div>                        <div class="TimerOff">                            <label id="lblOff11" class="">0</label>                        </div>                    </div>
-                </div>
-            </div>
-        </div>
-    </form>
-    <script type="text/javascript">
-        var mCtr = 0;        var mSubsTime = 30;        var inYellow;        var half = 40; //put whatever figure this should be in seconds eg: 20min = 1200        var full = half * 2;        var Half2nd = false;        var newline = "&#013;&#010;";
-        var names = ["Brodie", "Macca", "Henry", "Lachie", "Mylo", "Jimmy", "Theo", "Zac", "Hugo", "Riley", "Pat"]
-        var sel = document.getElementById("SelectOn");
-        //load names into headers...        for (var i = names.length; i >= 1; i--) {            document.getElementById("Header" + i).innerText = names[i - 1];
-            //load up images            document.getElementById("Image" + i).src = "Assets/" + names[i - 1].toLowerCase() + ".png";
-            //load up SelectON dropdown            var option = document.createElement("option");            option.text = names[i - 1]            option.value = option.text;            sel.add(option);
-        }
-        var lSubs = document.getElementById("lblLastSubs");        var cSubs = document.getElementById("lblCurrentSubs");        lSubs.innerText = "Last Subs Change - ";        cSubs.innerText = "Last Subs Change - ";
-        var m_names = new Array("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec");
-        var d = new Date();        var curr_date = d.getDate();        var curr_month = d.getMonth();        var curr_year = d.getFullYear();
-        var tt = document.getElementById("lblTodayDate");        tt.innerText = curr_date + "-" + m_names[curr_month] + "-" + curr_year;
-        (function () {            function checkTime(i) {                return (i < 10) ? "0" + i : i;            }
-            function startTime() {                var today = new Date(),                    h = checkTime(today.getHours()),                    m = checkTime(today.getMinutes()),                    s = checkTime(today.getSeconds());                document.getElementById('lblTodayTime').innerText = h + ":" + m + ":" + s;                t = setTimeout(function () {                    startTime()                }, 500);            }            startTime();        })();
-        //sort SelectOn        var opt = $("#SelectOn option").sort(function (a, b) { return a.value.toUpperCase().localeCompare(b.value.toUpperCase()) });        $("#SelectOn").append(opt);        $("#SelectOn").find('option:first').attr('selected', 'selected');
-        function FixTimes(mTime) {            var totalSeconds = Math.abs(mTime);
-            var seconds = Math.floor(totalSeconds % 60);            var minutes = Math.floor(totalSeconds / 60);
-            if (mTime <= 0) {                return "-" + checkTime(minutes) + ":" + checkTime(seconds);            }            else {                return checkTime(minutes) + ":" + checkTime(seconds);            }
-        }
-        function checkTime(i) {            return (i > -10 && i < 10) ? "0" + i : i;        }
-        function ResetTime() {            mSubsTime = 30;            inYellow = false;
-            //document.getElementById("zoneOn").style.backgroundColor = "";
-            //change background to silver (in case it was red)            var zoneOn = document.getElementById("ZoneOn");            zoneOn.style.backgroundColor = "silver";
-            var mSubs = document.getElementById("lblLastSubs");            mSubs.innerText = GetSubs();
-        }
-        function SwapMatchTime(sender, args) {
-            var dd = document.getElementById("btnStartMatch");            var txt = document.getElementById("txtArea");
-            var mSubs = document.getElementById("lblLastSubs");            mSubs.innerText = GetSubs();                        if (dd.value == "Start 2nd Half") {                //set timer to halftime + 1 second                //document.getElementById("lblTime").innerText = half + 1;
-                txt.innerHTML = txt.innerHTML + newline + FixTimes(half) + " - 2nd Half Started";
-                //reset half to full - need to use a flag here instead later on                half = full;
-                ResetTime();
-            }            else {                if (txt.innerText == "") //only write start once                    txt.innerHTML = "00:00 - Game Started";            }
-            if (dd.value == "Pause Match") {                dd.value = "Continue Match";            }            else {                dd.value = "Pause Match";            }
-        }
-        function GetSubs() {            var pLine = "";
-            var mSubs = document.getElementById("lblCurrentSubs");
-            var ons = document.getElementsByClassName("OFF");
-            for (var i = 0; i <= ons.length - 1; i++) {
-                var xx = document.getElementById(ons[i].id).parentElement.parentElement.innerText;                var pos = xx.indexOf(" ")
-                pLine = pLine + xx.substring(0, pos) + ", ";            }
-            var pSubs = mSubs.innerText;
-            mSubs.innerText = "Previous Subs: " + pLine.substring(0, pLine.length - 2);
-            return pSubs;        }
-        function HighlightYellow() {            var ActualNbrSubs;
-            //find the top xx to take off            var ons = document.getElementsByClassName("ON");            var foo = [];            for (var i = ons.length - 1; i >= 0; i--) {
-                var mDiv = document.getElementById(ons[i].id).parentElement.parentElement;
-                //don't include if in goal                if (mDiv.parentElement.id == "ZoneOn") {                    //don't include if we are AlwaysOn                    if (mDiv.style.backgroundColor != "rgb(132, 197, 232)") {                        foo.push([mDiv, parseInt(ons[i].innerText)]);                    }                }            }            //sort in descending order            var xx = foo.sort(custom_compare).reverse();
-            var NbrSubs = document.getElementsByClassName("OFF").length;
-            //if we have less ON than NbrSubs, then recalculate            if (NbrSubs > xx.length)                ActualNbrSubs = xx.length;            else                ActualNbrSubs = NbrSubs;
-            //get top xx to come OFF            for (var i = 0; i <= ActualNbrSubs - 1; i++) {                var mOff = xx[i][0];
-                if (mOff.parentElement.id == "ZoneOn") {                    mOff.style.backgroundColor = "yellow";                }            }
-            //find top xx to put back ON            var offs = document.getElementsByClassName("OFF");            var foo = [];            for (var i = offs.length - 1; i >= 0; i--) {
-                var mDiv = document.getElementById(offs[i].id).parentElement.parentElement;
-                foo.push([mDiv, parseInt(offs[i].innerText)]);
-            }            //sort in descending order            var xx = foo.sort(custom_compare).reverse();
-            //put the same number OFF back ON            var offs = document.getElementsByClassName("OFF");
-            for (var i = 0; i <= ActualNbrSubs - 1; i++) {
-                var mOff = xx[i][0];                mOff.style.backgroundColor = "yellow";
-            }
-        }
-        (function () {
-            function startTime() {
-                var btn = document.getElementById("btnStartMatch");
-                var ons = document.getElementsByClassName("ON");                var offs = document.getElementsByClassName("OFF");
-                //have we started the match...                if (btn.value == "Pause Match") {
-                    //update match time                    mCtr = mCtr + 1;                    lblTime.innerText = FixTimes(mCtr);
-                    mSubsTime = mSubsTime - 1;                    lblTimeLeft.innerText = FixTimes(mSubsTime);
-                    //UPDATE TIMES ON each dock                    for (var i = ons.length - 1; i >= 0; i--) {
-                        var ctr = parseInt(ons[i].innerText);                        ons[i].innerHTML = ctr + 1;                    }
-                    for (var i = offs.length - 1; i >= 0; i--) {
-                        var ctr = parseInt(offs[i].innerText);                        offs[i].innerHTML = ctr + 1;                    }
-                    //check if we are due for a subs change                    if (mSubsTime <= 15 && !inYellow) {
-                        inYellow = true;
-                        HighlightYellow();
-                    }
-                    if (mSubsTime <= 5) {
-                        var zoneOn = document.getElementById("ZoneOn");
-                        //flash screen so we remember to RESET                        if (zoneOn.style.backgroundColor == "silver")                            zoneOn.style.backgroundColor = "red";                        else                            zoneOn.style.backgroundColor = "silver";                    }
-                    //have we reached half or full ?                    if (mCtr >= half) {
-                        //stop subs time                        document.getElementById("lblTimeLeft").innerText = "00:00";
-                        //disable buttons                        document.getElementById("btnResetSubs").disabled = "disabled";
-                        var txt = document.getElementById("txtArea");
-                        //if 1st half...                        if (!Half2nd) {
-                            //set flag                            Half2nd = true;
-                            //add half to lblscores                            txt.innerHTML = txt.innerHTML + newline + FixTimes(half) + " - HALF TIME";
-                            btn.value = "Start 2nd Half";
-                            //flash yellow the on/offs for next half                            HighlightYellow();
-                            //show lblmatchtimeview to show half                            //mview.style.fontSize = "40px";                            //mview.innerText = "Half Time";
-                        }                        else {                            //add half to lblscores                            txt.innerHTML = txt.innerHTML + newline + FixTimes(half) + " - FULL TIME";
-                            btn.value = "FULL TIME";
-                            btn.disabled = "disabled";
-                            //show lblmatchtimeview to show half                            //mview.style.fontSize = "40px";                            //mview.innerText = "FULL Time";                            //mview.style.backgroundColor = "yellow";
-                        }
-                    }
-                }
-                t = setTimeout(function () {                    startTime()                }, 1000);            }            startTime();        })();
-    </script>
-</body></html>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dean Demo</title>
+
+    <link rel="stylesheet" type="text/css" href="StyleSheetHTML.css" />
+
+    <script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
+    <script type="text/javascript" src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
+    <script type="text/javascript" src="http://www.pureexample.com/js/lib/jquery.ui.touch-punch.min.js"></script>
+
+    <link href="https://fonts.googleapis.com/css?family=Droid+Sans+Mono" rel="stylesheet">
+
+
+    <meta name="viewport" content="width=device-width,height=device-height,user-scalable=yes">
+</head>
+<body style="width: 100%; height: 100%; overflow: hidden; background-color: #EAF0F7; color: #892E2E; font-size: small">
+
+    <form id="form1">
+        <script>
+
+            //function OnClientClickedOK(button, args) {
+            //    if (window.confirm("Are you sure you want to RESTART this MATCH?")) {
+            //        button.set_autoPostBack(true);
+            //    }
+            //    else {
+            //        button.set_autoPostBack(false);
+            //    }
+            //}
+
+            var newline = "&#013;&#010;";
+            var onField = 7;
+
+            function AlwaysOn(_this) {
+
+                //change background to blue
+                var ON = document.getElementsByClassName("ON");
+                for (var i = ON.length - 1; i >= 0; i--) {
+
+                    if (ON[i].parentElement.parentElement.parentElement.id != "ZoneGoal") {
+
+                        if (document.getElementById("Header" + ON[i].id.substr(5, 2)).innerText == _this.value) {
+                            ON[i].parentElement.parentElement.style.backgroundColor = "#84C5E8";
+                        }
+                        else
+                            ON[i].parentElement.parentElement.style.backgroundColor = "limegreen";
+                    }
+                }
+            }
+
+            function RemoveGoal(myType) {
+                var txt = document.getElementById("txtArea");
+                var desc = txt.innerHTML;
+                var start = desc.lastIndexOf(myType);
+                var end = desc.indexOf("\n", start); //see if we have any newlines after this goal
+
+                start = start - 9; //get start of string
+
+                if (end == -1) {
+                    //this goal is the last one in txtarea
+                    txt.innerHTML = desc.substr(0, start);
+                }
+                else {
+                    //there are more goals after this one, so just remove this one
+                    txt.innerHTML = desc.substr(0, start) + newline + desc.substr(end + 1, desc.length);
+                }
+            }
+
+            function HomePlus() {
+                var lbl = document.getElementById("lblHome");
+                lbl.innerText = parseInt(lbl.innerText) + 1;
+
+                $("#lblHome").addClass("MakeBig");
+
+                setTimeout(function () {
+                    $("#lblHome").removeClass("MakeBig");
+                }, 700);
+
+                var txt = document.getElementById("txtArea");
+                var sel = document.getElementById("selGoal");
+                lbl = document.getElementById("lblTime");
+
+                txt.innerHTML = txt.innerHTML + newline + lbl.innerText + " - HOME Goal - " + sel.value;
+            }
+
+            function HomeMinus() {
+
+                var lbl = document.getElementById("lblHome");
+
+                if (parseInt(lbl.innerText) == "0") return;
+
+                lbl.innerText = parseInt(lbl.innerText) - 1;
+
+                $("#lblHome").addClass("MakeBig");
+
+                setTimeout(function () {
+                    $("#lblHome").removeClass("MakeBig");
+                }, 700);
+
+                RemoveGoal("HOME");
+
+            }
+
+            function AwayPlus() {
+                var lbl = document.getElementById("lblAway");
+                lbl.innerText = parseInt(lbl.innerText) + 1;
+
+                $("#lblAway").addClass("MakeBig");
+
+                setTimeout(function () {
+                    $("#lblAway").removeClass("MakeBig");
+                }, 700);
+
+                var txt = document.getElementById("txtArea");
+                lbl = document.getElementById("lblTime");
+
+                txt.innerHTML = txt.innerHTML + newline + lbl.innerText + " - AWAY Goal";
+            }
+
+            function AwayMinus() {
+
+                var lbl = document.getElementById("lblAway");
+
+                if (parseInt(lbl.innerText) == "0") return;
+
+                lbl.innerText = parseInt(lbl.innerText) - 1;
+
+                $("#lblAway").addClass("MakeBig");
+
+                setTimeout(function () {
+                    $("#lblAway").removeClass("MakeBig");
+                }, 700);
+
+                RemoveGoal("AWAY");
+
+            }
+
+            function custom_compare(a, b) {
+                return a[1] - b[1];
+            }
+
+            $(function () {
+
+                var mTop = 0;
+
+                $('.draggable').draggable({
+
+                    zIndex: 9700,
+
+                    revert: 'invalid', opacity: 0.65,
+
+                    stop: function (event, ui) {
+
+                        // Make it properly draggable again
+                        $(this).draggable('option', 'revert', 'invalid');
+                    }
+
+                });
+
+                $('.droppable').droppable({
+
+                    hoverClass: "drop-hover",
+
+                    drop: function (event, ui) {
+                        var $this = $(this);
+
+                        if (event.target.id == "ZoneOff") {
+
+                            //remove class from ON
+                            ui.draggable.context.children[2].children[0].className = "";
+
+                            //Add class To OFF
+                            ui.draggable.context.children[3].children[0].className = "OFF";
+
+                        }
+
+                        if (event.target.id == "ZoneAway") {
+
+                            //remove class from ON
+                            ui.draggable.context.children[2].children[0].className = "";
+
+                            //Add class To OFF
+                            ui.draggable.context.children[3].children[0].className = "";
+
+                        }
+
+                        if (event.target.id == "ZoneOn") {
+
+                            // Check number of elements already in
+                            if ($this.find('.draggable').length >= onField) {
+                                // Cancel drag operation (make it always revert)
+                                ui.draggable.draggable('option', 'revert', true);
+
+                                return;
+                            }
+
+                            //assign class name to ON
+                            ui.draggable.context.children[2].children[0].className = "ON";
+
+                            //remove class from OFF
+                            ui.draggable.context.children[3].children[0].className = "";
+
+                        }
+
+                        if (event.target.id == "ZoneGoal") {
+
+                            // Check number of elements already in
+                            if ($this.find('.draggable').length >= 1) {
+                                // Cancel drag operation (make it always revert)
+                                ui.draggable.draggable('option', 'revert', true);
+
+                                return;
+                            }
+
+                            //assign class name to ON
+                            ui.draggable.context.children[2].children[0].className = "ON";
+
+                            //remove class from OFF
+                            ui.draggable.context.children[3].children[0].className = "";
+
+                        }
+
+                        var aa = ui.draggable.context;
+                        if (event.target.id == "ZoneGoal")
+                            aa.style.backgroundColor = "#84C5E8"
+                        if (event.target.id == "ZoneOn")
+                            aa.style.backgroundColor = "limegreen"
+                        if (event.target.id == "ZoneOff")
+                            aa.style.backgroundColor = "orangered"
+                        if (event.target.id == "ZoneAway")
+                            aa.style.backgroundColor = "#F0F0F0"
+
+                        // Put dragged item into container
+                        ui.draggable.appendTo($this).css({
+                            top: '0px',
+                            left: '0px'
+                        });
+
+                        //if we are dragging out of zoneON, then (in the each loop) change bg
+                        $('.droppable').each(function () {
+
+                            var $this = $(this);
+
+                            if ($this.context.id == "ZoneOn") {
+                                if ($this.find('.draggable').length >= onField) {
+                                    $this.context.style.backgroundColor = "silver"
+
+                                    var sel = document.getElementById("selGoal");
+
+                                    //clear out items
+                                    while (sel.options.length > 0) {
+                                        sel.remove(0);
+                                    }
+
+                                    //populate selGoals dropdown and SelectON
+                                    var ON = document.getElementsByClassName("ON");
+                                    for (var i = ON.length - 1; i >= 0; i--) {
+
+                                        if (ON[i].parentElement.parentElement.parentElement.id != "ZoneGoal") {
+                                            var option = document.createElement("option");
+                                            option.text = document.getElementById("Header" + ON[i].id.substr(5, 2)).innerText;
+                                            option.value = option.text;
+                                            sel.add(option);
+                                        }
+                                    }
+
+                                    var opt = $("#selGoal option").sort(function (a, b) { return a.value.toUpperCase().localeCompare(b.value.toUpperCase()) });
+                                    $("#selGoal").append(opt);
+                                    $("#selGoal").find('option:first').attr('selected', 'selected');
+
+                                }
+                                else {
+                                    $this.context.style.backgroundColor = "white"
+                                }
+                            }
+
+                        });
+
+                        //check if goal and ON is set, if so, enable START button, else disable
+                        var ons = document.getElementsByClassName("ON");
+
+                        var start = document.getElementById("btnStartMatch");
+                        var subs = document.getElementById("btnResetSubs");
+                        var homeplus = document.getElementById("btnHomePlus");
+                        var homeminus = document.getElementById("btnHomeMinus");
+                        var awayplus = document.getElementById("btnAwayPlus");
+                        var awayminus = document.getElementById("btnAwayMinus");
+
+                        if (ons.length == onField + 1) {
+                            start.disabled = "";
+                            subs.disabled = "";
+                            homeplus.disabled = "";
+                            homeminus.disabled = "";
+                            awayplus.disabled = "";
+                            awayminus.disabled = "";
+                        }
+                        else {
+                            start.disabled = "disabled";
+                            subs.disabled = "disabled";
+                            homeplus.disabled = "disabled";
+                            homeminus.disabled = "disabled";
+                            awayplus.disabled = "disabled";
+                            awayminus.disabled = "disabled";
+                        }
+
+
+                    }
+                });
+
+            });
+        </script>
+
+        <div style="width: 1180px; margin-left: auto; margin-right: auto; text-align: center;">
+
+            <div style="float: left;">
+
+                <div id="head" style="border-color: dodgerblue; height: 300px; width: 1175px;">
+
+                    <div class="divShadow2" style="height: 280px; width: 320px; padding: 10px; background-color: white; float: left">
+                        <table style="width: 100%; text-align: left; color: #3D72AD;">
+                            <tr>
+                                <td style="width: 83px">Always On</td>
+                                <td>
+                                    <select id="SelectOn" onchange="AlwaysOn(this)" name="D1" style="width: 230px; font-size: 10pt">
+                                        <option value="-99">** No-One **</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="width: 83px">Away</td>
+                                <td>
+                                    <input id="txtAway" type="text" /></td>
+                            </tr>
+                            <tr>
+                                <td style="width: 83px">Sub Changes</td>
+                                <td>
+                                    <select id="SelectSubs" name="D1" style="width: 70px; font-size: 10pt">
+                                        <option value="5">5m</option>
+                                        <option value="10">10m</option>
+                                        <option value="15">15m</option>
+                                        <option value="20">20m</option>
+                                    </select>
+                                </td>
+                            </tr>
+                        </table>
+                        <textarea id="txtArea" name="S1" style="width: 306px; font-family: 'Droid Sans','Segoe UI', Tahoma, Geneva, Verdana, sans-serif; height: 123px"></textarea><br />
+                        <br />
+                        <input id="btnResetMatch" type="button" value="Reset" style="width: 95px; height: 28px;" onclick="" />
+                    </div>
+
+                    <div id="spacer" style="height: 320px; width: 35px; float: left">
+                    </div>
+
+                    <div class="divShadow2" style="height: 300px; width: 235px; background-color: white; float: left">
+                        <div style="height: 114px">
+                            <label id="lblHome" style="font-size: 56pt; color: limegreen">0</label>
+                            <label id="lblSep" style="font-size: 56pt; color: black">:</label>
+                            <label id="lblAway" style="font-size: 56pt; color: firebrick">0</label>
+
+                        </div>
+                        <div>
+                            <select id="selGoal" name="D1" style="width: 170px; position: relative; top: -5px; font-size: 10pt">
+                            </select>
+
+                        </div>
+
+                        <table style="width: 100%">
+                            <tr>
+                                <td style="color: #249324">Home</td>
+                                <td>Away</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <strong>
+                                    <input id="btnHomePlus" disabled="disabled" onclick="HomePlus();" type="button" value="+" style="width: 54px; height: 40px; font-size: 22px; color: #2BAA2B; font-weight: bold;" /></strong></td>
+                                <td>
+                                    <strong>
+                                    <input id="btnAwayPlus" disabled="disabled" onclick="AwayPlus();" type="button" value="+" style="width: 54px; height: 40px; font-size: 22px; color: firebrick; font-weight: bold;" /></strong></td>
+                            </tr>
+                            <tr>
+                                <td style="height: 25px"></td>
+                                <td style="height: 25px"></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input id="btnHomeMinus" disabled="disabled" onclick="HomeMinus();" type="button" value="-" style="width: 54px; height: 30px; font-size: 22px; color: #2BAA2B;" /></td>
+                                <td>
+                                    <input id="btnAwayMinus" disabled="disabled" onclick="AwayMinus();" type="button" value="-" style="width: 54px; height: 30px; font-size: 22px; color: firebrick;" /></td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <div id="Workarea" class="divShadow2" style="width: 505px; height: 300px; float: right; background-color: white; text-align: left; padding-left: 10px; padding-right: 10px;">
+                        <table style="width: 100%; height: 82px; padding: 0px; margin: 0px;">
+                            <tr>
+                                <td style="width: 221px">
+                                    <label id="lblTime" style="font-size: 56pt; font-family: 'Droid Sans Mono'; color: dodgerblue">00:00</label>
+                                </td>
+                                <td></td>
+                                <td style="text-align: left; width: 193px;">
+                                    <label id="lblTimeLeft" style="font-size: 56pt; font-family: 'Droid Sans Mono'; color: rebeccapurple">00:00</label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="width: 221px; text-align: center;">
+                                    <label id="lblx" style="font-size: 10pt; color: dodgerblue">Game Time</label></td>
+                                <td>&nbsp;</td>
+                                <td style="text-align: center; width: 193px;">
+                                    <label id="lblx1" style="font-size: 10pt; color: rebeccapurple">Subs Time</label></td>
+                            </tr>
+                            <tr>
+                                <td style="width: 221px">
+                                    <br />
+                                </td>
+                                <td>&nbsp;</td>
+                                <td style="text-align: left; width: 193px;">&nbsp;</td>
+                            </tr>
+                        </table>
+                        <table style="width: 100%">
+                            <tr>
+                                <td style="width: 235px">
+                                    <input id="btnStartMatch" disabled="disabled" type="button" value="Start" style="width: 223px; height: 34px; font-size: 20px;" onclick="SwapMatchTime();" /></td>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                                <td style="text-align: right">
+                                    <input id="btnResetSubs" disabled="disabled" type="button" value="Reset Subs Timer" style="width: 223px; height: 34px; font-size: 20px;" onclick="ResetTime();" /></td>
+                            </tr>
+                            <tr>
+                                <td style="width: 235px">&nbsp;</td>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                                <td style="text-align: right">&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td colspan="4">
+                                    <label id="lblLastSubs" style="font-size: 10pt; color: rebeccapurple"></label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="width: 235px">
+                                    <label id="lblCurrentSubs" style="font-size: 10pt; display:none; color: rebeccapurple"></label>
+                                </td>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                                <td style="text-align: right">&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td style="width: 235px">
+                                    <label id="lblTodayDate" style="font-size: 20pt; font-weight: 600; color: dodgerblue"></label>
+                                </td>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                                <td style="text-align: right">
+                                    <label id="lblTodayTime" style="font-size: 20pt; font-weight: 600; color: dodgerblue"></label>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+
+                </div>
+
+                <br />
+
+                <div id="ZoneOn" class="droppable" style="border-color: forestgreen;">
+                </div>
+                <br />
+
+                <div id="head1" style="height: 130px; width: 1175px;">
+
+                    <div id="ZoneGoal" class="droppable" style="border-color: dodgerblue; height: 120px; float: left; top: 100px; width: 147px;">
+                    </div>
+
+                    <div id="ZoneOff" class="droppable" style="border-color: orangered; width: 925px; float: right">
+
+                        <div id="div3" class="draggable" style="background-color: orangered">
+                            <div class="Header">
+                                <label style="top: -4px; position: relative" id="Header1">Aaaaa</label>
+                            </div>
+                            <div style="float: left">
+                                <img id="Image1" src="Assets/a.png">
+                            </div>
+                            <div class="TimerOn">
+                                <label id="lblOn1" class="">0</label>
+                            </div>
+                            <div class="TimerOff">
+                                <label id="lblOff1" class="OFF">0</label>
+                            </div>
+                        </div>
+
+                        <div id="div4" class="draggable" style="background-color: orangered">
+                            <div class="Header">
+                                <label style="top: -4px; position: relative" id="Header2">Bbbbb</label>
+                            </div>
+                            <div style="float: left">
+                                <img id="Image2" src="Assets/b.png">
+                            </div>
+                            <div class="TimerOn">
+                                <label id="lblOn2" class="">0</label>
+                            </div>
+                            <div class="TimerOff">
+                                <label id="lblOff2" class="OFF">0</label>
+                            </div>
+                        </div>
+
+                        <div id="div5" class="draggable" style="background-color: orangered">
+                            <div class="Header">
+                                <label style="top: -4px; position: relative" id="Header3">Ccccc</label>
+                            </div>
+                            <div style="float: left">
+                                <img id="Image3" src="Assets/c.png">
+                            </div>
+                            <div class="TimerOn">
+                                <label id="lblOn3" class="">0</label>
+                            </div>
+                            <div class="TimerOff">
+                                <label id="lblOff3" class="OFF">0</label>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <br />
+
+                <div id="ZoneAway" class="droppable" style="border-color: gray;">
+
+                    <div id="div6" class="draggable">
+                        <div class="Header">
+                            <label style="top: -4px; position: relative" id="Header4">Ddddd</label>
+                        </div>
+                        <div style="float: left">
+                            <img id="Image4" src="Assets/d.png">
+                        </div>
+                        <div class="TimerOn">
+                            <label id="lblOn4" class="">0</label>
+                        </div>
+                        <div class="TimerOff">
+                            <label id="lblOff4" class="">0</label>
+                        </div>
+                    </div>
+
+                    <div id="div7" class="draggable">
+                        <div class="Header">
+                            <label style="top: -4px; position: relative" id="Header5">Eeeee</label>
+                        </div>
+                        <div style="float: left">
+                            <img id="Image5" src="Assets/e.png">
+                        </div>
+                        <div class="TimerOn">
+                            <label id="lblOn5" class="">0</label>
+                        </div>
+                        <div class="TimerOff">
+                            <label id="lblOff5" class="">0</label>
+                        </div>
+                    </div>
+
+                    <div id="div8" class="draggable">
+                        <div class="Header">
+                            <label style="top: -4px; position: relative" id="Header6">Fffff</label>
+                        </div>
+                        <div style="float: left">
+                            <img id="Image6" src="Assets/f.png">
+                        </div>
+                        <div class="TimerOn">
+                            <label id="lblOn6" class="">0</label>
+                        </div>
+                        <div class="TimerOff">
+                            <label id="lblOff6" class="">0</label>
+                        </div>
+                    </div>
+
+
+                    <div id="div9" class="draggable">
+                        <div class="Header">
+                            <label style="top: -4px; position: relative" id="Header7">Gggggg</label>
+                        </div>
+                        <div style="float: left">
+                            <img id="Image7" src="Assets/g.png">
+                        </div>
+                        <div class="TimerOn">
+                            <label id="lblOn7" class="">0</label>
+                        </div>
+                        <div class="TimerOff">
+                            <label id="lblOff7" class="">0</label>
+                        </div>
+                    </div>
+
+                    <div id="div10" class="draggable">
+                        <div class="Header">
+                            <label style="top: -4px; position: relative" id="Header8">Hhhhhh</label>
+                        </div>
+                        <div style="float: left">
+                            <img id="Image8" src="Assets/h.png">
+                        </div>
+                        <div class="TimerOn">
+                            <label id="lblOn8" class="">0</label>
+                        </div>
+                        <div class="TimerOff">
+                            <label id="lblOff8" class="">0</label>
+                        </div>
+                    </div>
+
+                    <div id="div11" class="draggable">
+                        <div class="Header">
+                            <label style="top: -4px; position: relative" id="Header9">Jjjjj</label>
+                        </div>
+                        <div style="float: left">
+                            <img id="Image9" src="Assets/j.png">
+                        </div>
+                        <div class="TimerOn">
+                            <label id="lblOn9" class="">0</label>
+                        </div>
+                        <div class="TimerOff">
+                            <label id="lblOff9" class="">0</label>
+                        </div>
+                    </div>
+
+                    <div id="div12" class="draggable">
+                        <div class="Header">
+                            <label style="top: -4px; position: relative" id="Header10">Kkkkk</label>
+                        </div>
+                        <div style="float: left">
+                            <img id="Image10" src="Assets/k.png">
+                        </div>
+                        <div class="TimerOn">
+                            <label id="lblOn10" class="">0</label>
+                        </div>
+                        <div class="TimerOff">
+                            <label id="lblOff10" class="">0</label>
+                        </div>
+                    </div>
+
+                    <div id="div13" class="draggable">
+                        <div class="Header">
+                            <label style="top: -4px; position: relative" id="Header11">Mmmmm</label>
+                        </div>
+                        <div style="float: left">
+                            <img id="Image11" src="Assets/m.png">
+                        </div>
+                        <div class="TimerOn">
+                            <label id="lblOn11" class="">0</label>
+                        </div>
+                        <div class="TimerOff">
+                            <label id="lblOff11" class="">0</label>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </form>
+
+    <script type="text/javascript">
+
+        var mCtr = 0;
+        var mSubsTime = 30;
+        var inYellow;
+        var half = 40; //put whatever figure this should be in seconds eg: 20min = 1200
+        var full = half * 2;
+        var Half2nd = false;
+        var newline = "&#013;&#010;";
+
+        var names = ["Brodie", "Macca", "Henry", "Lachie", "Mylo", "Jimmy", "Theo", "Zac", "Hugo", "Riley", "Pat"]
+
+        var sel = document.getElementById("SelectOn");
+
+        //load names into headers...
+        for (var i = names.length; i >= 1; i--) {
+            document.getElementById("Header" + i).innerText = names[i - 1];
+
+            //load up images
+            document.getElementById("Image" + i).src = "Assets/" + names[i - 1].toLowerCase() + ".png";
+
+            //load up SelectON dropdown
+            var option = document.createElement("option");
+            option.text = names[i - 1]
+            option.value = option.text;
+            sel.add(option);
+
+        }
+
+        var lSubs = document.getElementById("lblLastSubs");
+        var cSubs = document.getElementById("lblCurrentSubs");
+        lSubs.innerText = "Last Subs Change - ";
+        cSubs.innerText = "Last Subs Change - ";
+
+        var m_names = new Array("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec");
+
+        var d = new Date();
+        var curr_date = d.getDate();
+        var curr_month = d.getMonth();
+        var curr_year = d.getFullYear();
+
+        var tt = document.getElementById("lblTodayDate");
+        tt.innerText = curr_date + "-" + m_names[curr_month] + "-" + curr_year;
+
+        (function () {
+            function checkTime(i) {
+                return (i < 10) ? "0" + i : i;
+            }
+
+            function startTime() {
+                var today = new Date(),
+                    h = checkTime(today.getHours()),
+                    m = checkTime(today.getMinutes()),
+                    s = checkTime(today.getSeconds());
+                document.getElementById('lblTodayTime').innerText = h + ":" + m + ":" + s;
+                t = setTimeout(function () {
+                    startTime()
+                }, 500);
+            }
+            startTime();
+        })();
+
+        //sort SelectOn
+        var opt = $("#SelectOn option").sort(function (a, b) { return a.value.toUpperCase().localeCompare(b.value.toUpperCase()) });
+        $("#SelectOn").append(opt);
+        $("#SelectOn").find('option:first').attr('selected', 'selected');
+
+
+        function FixTimes(mTime) {
+            var totalSeconds = Math.abs(mTime);
+
+            var seconds = Math.floor(totalSeconds % 60);
+            var minutes = Math.floor(totalSeconds / 60);
+
+            if (mTime <= 0) {
+                return "-" + checkTime(minutes) + ":" + checkTime(seconds);
+            }
+            else {
+                return checkTime(minutes) + ":" + checkTime(seconds);
+            }
+
+        }
+
+        function checkTime(i) {
+            return (i > -10 && i < 10) ? "0" + i : i;
+        }
+
+        function ResetTime() {
+            mSubsTime = 30;
+            inYellow = false;
+
+            //document.getElementById("zoneOn").style.backgroundColor = "";
+
+            //change background to silver (in case it was red)
+            var zoneOn = document.getElementById("ZoneOn");
+            zoneOn.style.backgroundColor = "silver";
+
+            var mSubs = document.getElementById("lblLastSubs");
+            mSubs.innerText = GetSubs();
+
+        }
+
+        function SwapMatchTime(sender, args) {
+
+            var dd = document.getElementById("btnStartMatch");
+            var txt = document.getElementById("txtArea");
+
+            var mSubs = document.getElementById("lblLastSubs");
+            mSubs.innerText = GetSubs();
+            
+            if (dd.value == "Start 2nd Half") {
+                //set timer to halftime + 1 second
+                //document.getElementById("lblTime").innerText = half + 1;
+
+                txt.innerHTML = txt.innerHTML + newline + FixTimes(half) + " - 2nd Half Started";
+
+                //reset half to full - need to use a flag here instead later on
+                half = full;
+
+                ResetTime();
+
+            }
+            else {
+                if (txt.innerText == "") //only write start once
+                    txt.innerHTML = "00:00 - Game Started";
+            }
+
+
+            if (dd.value == "Pause Match") {
+                dd.value = "Continue Match";
+            }
+            else {
+                dd.value = "Pause Match";
+            }
+
+        }
+
+        function GetSubs() {
+            var pLine = "";
+
+            var mSubs = document.getElementById("lblCurrentSubs");
+
+            var ons = document.getElementsByClassName("OFF");
+
+            for (var i = 0; i <= ons.length - 1; i++) {
+
+                var xx = document.getElementById(ons[i].id).parentElement.parentElement.innerText;
+                var pos = xx.indexOf(" ")
+
+                pLine = pLine + xx.substring(0, pos) + ", ";
+            }
+
+            var pSubs = mSubs.innerText;
+
+            mSubs.innerText = "Previous Subs: " + pLine.substring(0, pLine.length - 2);
+
+            return pSubs;
+        }
+
+
+        function HighlightYellow() {
+            var ActualNbrSubs;
+
+            //find the top xx to take off
+            var ons = document.getElementsByClassName("ON");
+            var foo = [];
+            for (var i = ons.length - 1; i >= 0; i--) {
+
+                var mDiv = document.getElementById(ons[i].id).parentElement.parentElement;
+
+                //don't include if in goal
+                if (mDiv.parentElement.id == "ZoneOn") {
+                    //don't include if we are AlwaysOn
+                    if (mDiv.style.backgroundColor != "rgb(132, 197, 232)") {
+                        foo.push([mDiv, parseInt(ons[i].innerText)]);
+                    }
+                }
+            }
+            //sort in descending order
+            var xx = foo.sort(custom_compare).reverse();
+
+            var NbrSubs = document.getElementsByClassName("OFF").length;
+
+            //if we have less ON than NbrSubs, then recalculate
+            if (NbrSubs > xx.length)
+                ActualNbrSubs = xx.length;
+            else
+                ActualNbrSubs = NbrSubs;
+
+            //get top xx to come OFF
+            for (var i = 0; i <= ActualNbrSubs - 1; i++) {
+                var mOff = xx[i][0];
+
+                if (mOff.parentElement.id == "ZoneOn") {
+                    mOff.style.backgroundColor = "yellow";
+                }
+            }
+
+            //find top xx to put back ON
+            var offs = document.getElementsByClassName("OFF");
+            var foo = [];
+            for (var i = offs.length - 1; i >= 0; i--) {
+
+                var mDiv = document.getElementById(offs[i].id).parentElement.parentElement;
+
+                foo.push([mDiv, parseInt(offs[i].innerText)]);
+
+            }
+            //sort in descending order
+            var xx = foo.sort(custom_compare).reverse();
+
+            //put the same number OFF back ON
+            var offs = document.getElementsByClassName("OFF");
+
+            for (var i = 0; i <= ActualNbrSubs - 1; i++) {
+
+                var mOff = xx[i][0];
+                mOff.style.backgroundColor = "yellow";
+
+            }
+
+        }
+
+
+        (function () {
+
+            function startTime() {
+
+                var btn = document.getElementById("btnStartMatch");
+
+                var ons = document.getElementsByClassName("ON");
+                var offs = document.getElementsByClassName("OFF");
+
+                //have we started the match...
+                if (btn.value == "Pause Match") {
+
+                    //update match time
+                    mCtr = mCtr + 1;
+                    lblTime.innerText = FixTimes(mCtr);
+
+                    mSubsTime = mSubsTime - 1;
+                    lblTimeLeft.innerText = FixTimes(mSubsTime);
+
+                    //UPDATE TIMES ON each dock
+                    for (var i = ons.length - 1; i >= 0; i--) {
+
+                        var ctr = parseInt(ons[i].innerText);
+                        ons[i].innerHTML = ctr + 1;
+                    }
+
+                    for (var i = offs.length - 1; i >= 0; i--) {
+
+                        var ctr = parseInt(offs[i].innerText);
+                        offs[i].innerHTML = ctr + 1;
+                    }
+
+                    //check if we are due for a subs change
+                    if (mSubsTime <= 15 && !inYellow) {
+
+                        inYellow = true;
+
+                        HighlightYellow();
+
+                    }
+
+                    if (mSubsTime <= 5) {
+
+                        var zoneOn = document.getElementById("ZoneOn");
+
+                        //flash screen so we remember to RESET
+                        if (zoneOn.style.backgroundColor == "silver")
+                            zoneOn.style.backgroundColor = "red";
+                        else
+                            zoneOn.style.backgroundColor = "silver";
+                    }
+
+                    //have we reached half or full ?
+                    if (mCtr >= half) {
+
+                        //stop subs time
+                        document.getElementById("lblTimeLeft").innerText = "00:00";
+
+                        //disable buttons
+                        document.getElementById("btnResetSubs").disabled = "disabled";
+
+                        var txt = document.getElementById("txtArea");
+
+                        //if 1st half...
+                        if (!Half2nd) {
+
+                            //set flag
+                            Half2nd = true;
+
+                            //add half to lblscores
+                            txt.innerHTML = txt.innerHTML + newline + FixTimes(half) + " - HALF TIME";
+
+                            btn.value = "Start 2nd Half";
+
+                            //flash yellow the on/offs for next half
+                            HighlightYellow();
+
+                            //show lblmatchtimeview to show half
+                            //mview.style.fontSize = "40px";
+                            //mview.innerText = "Half Time";
+
+                        }
+                        else {
+                            //add half to lblscores
+                            txt.innerHTML = txt.innerHTML + newline + FixTimes(half) + " - FULL TIME";
+
+                            btn.value = "FULL TIME";
+
+                            btn.disabled = "disabled";
+
+                            //show lblmatchtimeview to show half
+                            //mview.style.fontSize = "40px";
+                            //mview.innerText = "FULL Time";
+                            //mview.style.backgroundColor = "yellow";
+
+                        }
+
+                    }
+
+
+                }
+
+                t = setTimeout(function () {
+                    startTime()
+                }, 1000);
+            }
+            startTime();
+        })();
+
+    </script>
+
+</body>
+</html>
