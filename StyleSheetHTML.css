@@ -101,6 +101,15 @@ body {
     /*text-align: center;*/
 }
 
+.MakeBig {
+    transition: all 0.7s ease !important;
+    -webkit-transition: all 0.7s ease !important;
+    -moz-transition: all 0.7s ease !important;
+    -o-transition: all 0.7s ease !important;
+    opacity: 0.1;
+    z-index: 1000;
+}
+
 .tricky:hover .MakeBig {
     /*-webkit-transform: scale(5) !important;
     -moz-transform: scale(5) !important;
@@ -111,12 +120,6 @@ body {
     -webkit-transform: scale3d(3,3,1) !important;
 
 
-    transition: all 0.7s ease !important;
-    -webkit-transition: all 0.7s ease !important;
-    -moz-transition: all 0.7s ease !important;
-    -o-transition: all 0.7s ease !important;
-    opacity: 0.1;
-    z-index: 1000;
 }
 
 .Big {
