@@ -108,12 +108,13 @@ body {
     transform: scale(5) !important;*/
 
     transform: scale3d(3,3,1);
+    -webkit-transform: scale3d(3,3,1) !important;
 
+　
     transition: all 0.7s ease !important;
     -webkit-transition: all 0.7s ease !important;
     -moz-transition: all 0.7s ease !important;
     -o-transition: all 0.7s ease !important;
-
     opacity: 0.1;
     z-index: 1000;
 }
