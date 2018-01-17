@@ -29,7 +29,7 @@
             //}
 
             var newline = "&#013;&#010;";
-            var onField = 7;
+            var onField = 4;
 
             function AlwaysOn(_this) {
 
@@ -353,7 +353,9 @@
 
                     <div class="divShadow2" style="height: 300px; width: 235px; background-color: white; float: left">
                         <div style="height: 114px">
-                            <label id="lblHome" style="font-size: 56pt; color: limegreen">0</label>
+                            <div class="tricky">
+                                <label id="lblHome" class="MakeBig" style="font-size: 56pt; color: limegreen">0</label>
+                            </div>
                             <label id="lblSep" style="font-size: 56pt; color: black">:</label>
                             <label id="lblAway" style="font-size: 56pt; color: firebrick">0</label>
 
@@ -372,10 +374,10 @@
                             <tr>
                                 <td>
                                     <strong>
-                                    <input id="btnHomePlus" disabled="disabled" onclick="HomePlus();" type="button" value="+" style="width: 54px; height: 40px; font-size: 22px; color: #2BAA2B; font-weight: bold;" /></strong></td>
+                                        <input id="btnHomePlus" disabled="disabled" onclick="HomePlus();" type="button" value="+" style="width: 54px; height: 40px; font-size: 22px; color: #2BAA2B; font-weight: bold;" /></strong></td>
                                 <td>
                                     <strong>
-                                    <input id="btnAwayPlus" disabled="disabled" onclick="AwayPlus();" type="button" value="+" style="width: 54px; height: 40px; font-size: 22px; color: firebrick; font-weight: bold;" /></strong></td>
+                                        <input id="btnAwayPlus" disabled="disabled" onclick="AwayPlus();" type="button" value="+" style="width: 54px; height: 40px; font-size: 22px; color: firebrick; font-weight: bold;" /></strong></td>
                             </tr>
                             <tr>
                                 <td style="height: 25px"></td>
@@ -438,7 +440,7 @@
                             </tr>
                             <tr>
                                 <td style="width: 235px">
-                                    <label id="lblCurrentSubs" style="font-size: 10pt; display:none; color: rebeccapurple"></label>
+                                    <label id="lblCurrentSubs" style="font-size: 10pt; display: none; color: rebeccapurple"></label>
                                 </td>
                                 <td>&nbsp;</td>
                                 <td>&nbsp;</td>
@@ -763,7 +765,7 @@
 
             var mSubs = document.getElementById("lblLastSubs");
             mSubs.innerText = GetSubs();
-            
+
             if (dd.value == "Start 2nd Half") {
                 //set timer to halftime + 1 second
                 //document.getElementById("lblTime").innerText = half + 1;
