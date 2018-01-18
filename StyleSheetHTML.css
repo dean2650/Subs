@@ -101,27 +101,31 @@ body {
     /*text-align: center;*/
 }
 
+.tricky {
+    display:inline;
+}
+
+/*.tricky_image {
+    display:inline-block;
+    transition: all .6s ease;
+    -webkit-transition: all .6s ease;
+    opacity: 0.2;
+}*/
+
+　
 .MakeBig {
+    z-index: 1000;
+
+    display:inline-block;
+    transform: scale3d(3,3,1);
+    -webkit-transform: scale3d(3,3,1) !important;
+
     transition: all 0.7s ease !important;
     -webkit-transition: all 0.7s ease !important;
     -moz-transition: all 0.7s ease !important;
     -o-transition: all 0.7s ease !important;
-    opacity: 1;
-    z-index: 1000;
-}
 
-.tricky:hover .MakeBig {
-    /*-webkit-transform: scale(5) !important;
-    -moz-transform: scale(5) !important;
-    -o-transform: scale(5) !important;
-    transform: scale(5) !important;*/
-
-    opacity:0.1;
-
-    transform: scale3d(3,3,1);
-    -webkit-transform: scale3d(3,3,1) !important;
-
-
+    opacity: 0.1;
 }
 
 .Big {
