@@ -1,3 +1,15 @@
+/* iPad */
+@media only screen and (width:768px) and (device-width:768px) and (device-height:1024px) and (orientation: landscape) {
+	body {
+		-webkit-transform: scale(0.75);
+		-webkit-transform-origin: top right;
+		position: absolute;
+		right: 0;
+		top: 0;
+		width: 1024px;
+	}
+}
+
 body {
     font-family: 'Droid Sans','Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
 }
