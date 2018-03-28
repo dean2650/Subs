@@ -19,17 +19,17 @@
     <form id="form1">
         <script>
 
-            //function OnClientClickedOK(button, args) {
-            //    if (window.confirm("Are you sure you want to RESTART this MATCH?")) {
-            //        button.set_autoPostBack(true);
-            //    }
-            //    else {
-            //        button.set_autoPostBack(false);
-            //    }
-            //}
+            function OnClientClickedOK(button, args) {
+                if (window.confirm("Are you sure you want to RESTART this MATCH?")) {
+                    document.forms[0].submit();
+                }
+                else {
+                    //button.set_autoPostBack(false);
+                }
+            }
 
             var newline = "&#013;&#010;";
-            var onField = 4;
+            var onField = 5;
 
             function AlwaysOn(_this) {
 
@@ -67,6 +67,7 @@
             }
 
             function HomePlus() {
+
                 var lbl = document.getElementById("lblHome");
                 lbl.innerText = parseInt(lbl.innerText) + 1;
 
@@ -345,7 +346,7 @@
                         </table>
                         <textarea id="txtArea" name="S1" style="width: 306px; font-family: 'Droid Sans','Segoe UI', Tahoma, Geneva, Verdana, sans-serif; height: 123px"></textarea><br />
                         <br />
-                        <input id="btnResetMatch" type="button" value="Reset" style="width: 95px; height: 28px;" onclick="" />
+                        <input id="btnResetMatch" type="button" value="Reset" style="width: 95px; height: 28px;" onclick="OnClientClickedOK()" />
                     </div>
 
                     <div id="spacer" style="height: 320px; width: 35px; float: left">
@@ -353,7 +354,7 @@
 
                     <div class="divShadow2" style="height: 300px; width: 235px; background-color: white; float: left">
                         <div style="height: 114px">
-                                <label id="lblHome" style="font-size: 56pt; color: limegreen">0</label>
+                            <label id="lblHome" style="font-size: 56pt; color: limegreen">0</label>
                             <label id="lblSep" style="font-size: 56pt; color: black">:</label>
                             <label id="lblAway" style="font-size: 56pt; color: firebrick">0</label>
 
@@ -434,7 +435,6 @@
                             <tr>
                                 <td colspan="4">
                                     <label id="lblLastSubs" style="font-size: 10pt; color: rebeccapurple"></label>
-                                </td>
                             </tr>
                             <tr>
                                 <td style="width: 235px">
@@ -514,6 +514,37 @@
                             </div>
                             <div class="TimerOff">
                                 <label id="lblOff3" class="OFF">0</label>
+                            </div>
+                        </div>
+
+                        <div id="div14" class="draggable" style="background-color: orangered">
+                            <div class="Header">
+                                <label style="top: -4px; position: relative" id="Header12">pppp</label>
+                            </div>
+                            <div style="float: left">
+                                <img id="Image12" src="Assets/p.png">
+                            </div>
+                            <div class="TimerOn">
+                                <label id="lblOn12" class="">0</label>
+                            </div>
+                            <div class="TimerOff">
+                                <label id="lblOff12" class="">0</label>
+                            </div>
+                        </div>
+
+
+                        <div id="div15" class="draggable" style="background-color: orangered">
+                            <div class="Header">
+                                <label style="top: -4px; position: relative" id="Header13">Rrrr</label>
+                            </div>
+                            <div style="float: left">
+                                <img id="Image13" src="Assets/r.png">
+                            </div>
+                            <div class="TimerOn">
+                                <label id="lblOn13" class="">0</label>
+                            </div>
+                            <div class="TimerOff">
+                                <label id="lblOff13" class="">0</label>
                             </div>
                         </div>
 
@@ -657,14 +688,14 @@
     <script type="text/javascript">
 
         var mCtr = 0;
-        var mSubsTime = 30;
+        var mSubsTime = 300;
         var inYellow;
-        var half = 40; //put whatever figure this should be in seconds eg: 20min = 1200
+        var half = 1200; //put whatever figure this should be in seconds eg: 20min = 1200
         var full = half * 2;
         var Half2nd = false;
         var newline = "&#013;&#010;";
 
-        var names = ["Brodie", "Macca", "Henry", "Lachie", "Mylo", "Jimmy", "Theo", "Zac", "Hugo", "Riley", "Pat"]
+        var names = ["Brodie", "Macca", "Henry", "Lachie", "Mylo", "Jimmy", "Theo", "Zac", "Hugo", "Riley", "Pat", "Levi", "Thomas"]
 
         var sel = document.getElementById("SelectOn");
 
@@ -742,7 +773,7 @@
         }
 
         function ResetTime() {
-            mSubsTime = 30;
+            mSubsTime = document.getElementById("SelectSubs").value * 60;
             inYellow = false;
 
             //document.getElementById("zoneOn").style.backgroundColor = "";
@@ -778,7 +809,10 @@
             }
             else {
                 if (txt.innerText == "") //only write start once
+                {
                     txt.innerHTML = "00:00 - Game Started";
+                    mSubsTime = document.getElementById("SelectSubs").value * 60;
+                }
             }
 
 
@@ -911,7 +945,7 @@
                     }
 
                     //check if we are due for a subs change
-                    if (mSubsTime <= 15 && !inYellow) {
+                    if (mSubsTime <= 60 && !inYellow) {
 
                         inYellow = true;
 
